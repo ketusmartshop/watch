@@ -58,6 +58,7 @@
     background: rgba(10,10,10,.96); backdrop-filter: blur(14px);
     border-bottom: 1px solid rgba(201,168,76,.25);
   }
+  /* top urgency strip inside header */
   .header-urgency {
     background: linear-gradient(90deg, #1a0e00, #2a1a00, #1a0e00);
     border-bottom: 1px solid rgba(201,168,76,.2);
@@ -76,6 +77,7 @@
   @keyframes sweep { to { left: 160%; } }
   .hu-dot { width: 6px; height: 6px; border-radius: 50%; background: #ff4444; animation: blink2 1s ease infinite; flex-shrink: 0; }
   @keyframes blink2 { 0%,100%{opacity:1} 50%{opacity:0.2} }
+  /* main nav row */
   .header-nav {
     padding: 11px 20px; display: flex; align-items: center; justify-content: space-between;
   }
@@ -187,6 +189,7 @@
     background: radial-gradient(ellipse at 50% 50%, rgba(201,168,76,.08) 0%, transparent 70%);
     pointer-events: none;
   }
+  /* animated corner sparks */
   #countdown-section::after {
     content: '';
     position: absolute; top: 0; left: 0; right: 0; height: 2px;
@@ -250,6 +253,7 @@
     position: absolute; top: 50%; left: 0; right: 0; height: 1px;
     background: rgba(201,168,76,.12);
   }
+  /* flip-card shine overlay */
   .timer-box::after {
     content: '';
     position: absolute; inset: 0;
@@ -367,9 +371,43 @@
     width: 100%; padding: 12px; background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
     color: var(--black); font-weight: 700; border: none; border-radius: 6px;
     cursor: pointer; font-family: 'Hind Siliguri', sans-serif; font-size: .95rem;
-    transition: opacity .2s;
+    transition: opacity .2s, transform .2s;
   }
-  .btn-order-sm:hover { opacity: .88; }
+  .btn-order-sm:hover { opacity: .88; transform: translateY(-1px); }
+
+  /* product selected state */
+  .product-card.selected {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px rgba(201,168,76,.4), 0 12px 40px rgba(201,168,76,.25);
+  }
+  .product-card.selected .btn-order-sm {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+  }
+  .selected-badge {
+    display: none; position: absolute; top: 12px; right: 12px; z-index: 4;
+    background: #2ecc71; color: white; font-size: .72rem; font-weight: 700;
+    padding: 4px 10px; border-radius: 20px;
+  }
+  .product-card.selected .selected-badge { display: block; }
+
+  /* selected product preview in form */
+  #selectedProductPreview {
+    display: none;
+    background: rgba(201,168,76,.1); border: 1px solid rgba(201,168,76,.3);
+    border-radius: 8px; padding: 12px 14px; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  #selectedProductPreview img {
+    width: 52px; height: 52px; border-radius: 6px; object-fit: cover; flex-shrink: 0;
+  }
+  #selectedProductPreview .prev-info { flex: 1; }
+  #selectedProductPreview .prev-name { font-weight: 700; font-size: .9rem; color: var(--white); }
+  #selectedProductPreview .prev-price { font-size: .82rem; color: var(--gold); margin-top: 2px; }
+  #selectedProductPreview .prev-change {
+    font-size: .75rem; color: var(--gray); cursor: pointer; text-decoration: underline;
+    margin-top: 4px; display: inline-block;
+  }
 
   /* ── PAYMENT SECTION ── */
   #payment { background: var(--dark); }
@@ -612,6 +650,7 @@
   }
   .arr-btn:hover { background: rgba(201,168,76,.2); }
 
+  /* Gallery section */
   #gallery { background: var(--dark2); }
   .gallery-main { max-width: 500px; margin: 0 auto 20px; }
 
@@ -627,11 +666,13 @@
 </head>
 <body>
 
+<!-- LOADER -->
 <div id="loader">
   <div class="logo-text">Ketu's Mart</div>
   <div class="loader-ring"></div>
 </div>
 
+<!-- HEADER (urgency strip + nav combined) -->
 <header>
   <div class="header-urgency">
     <span class="hu-dot"></span>
@@ -643,6 +684,7 @@
   </div>
 </header>
 
+<!-- COUNTDOWN TIMER -->
 <div id="countdown-section" style="margin-top:88px;">
   <div class="timer-eyebrow">
     <span class="dot-blink"></span>
@@ -688,6 +730,7 @@
   </div>
 </div>
 
+<!-- HERO SECTION -->
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
@@ -712,6 +755,7 @@
   </div>
 </section>
 
+<!-- GALLERY SECTION -->
 <section id="gallery">
   <h2 class="sec-title reveal">আমাদের <span>কালেকশন</span></h2>
   <div class="divider"></div>
@@ -732,13 +776,16 @@
   </div>
 </section>
 
+<!-- PRODUCTS SECTION -->
 <section id="products">
   <h2 class="sec-title reveal">আমাদের <span>প্রিমিয়াম ঘড়ি</span></h2>
-  <p class="sec-sub reveal">সেরা মানের ঘড়ি, সেরা দামে</p>
+  <p class="sec-sub reveal">পছন্দের ঘড়িটি সিলেক্ট করুন, তারপর অর্ডার করুন</p>
   <div class="divider"></div>
   <div class="products-grid">
-    <div class="product-card reveal">
+
+    <div class="product-card reveal" id="prod-1" onclick="selectProduct(1)">
       <span class="tag">🔥 সেরা বিক্রি</span>
+      <span class="selected-badge">✓ সিলেক্ট হয়েছে</span>
       <div class="product-img-wrap">
         <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=500&q=80" alt="লাক্সারি ক্লাসিক ওয়াচ">
       </div>
@@ -754,11 +801,13 @@
           <li>দীর্ঘস্থায়ী ব্যাটারি</li>
           <li>প্রিমিয়াম কোয়ালিটি</li>
         </ul>
-        <button class="btn-order-sm" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">অর্ডার করুন</button>
+        <button class="btn-order-sm" type="button">এই ঘড়িটি সিলেক্ট করুন</button>
       </div>
     </div>
-    <div class="product-card reveal">
+
+    <div class="product-card reveal" id="prod-2" onclick="selectProduct(2)">
       <span class="tag">⭐ নতুন</span>
+      <span class="selected-badge">✓ সিলেক্ট হয়েছে</span>
       <div class="product-img-wrap">
         <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=500&q=80" alt="স্পোর্টস ওয়াচ">
       </div>
@@ -774,11 +823,13 @@
           <li>অতিরিক্ত লং ব্যাটারি</li>
           <li>স্টেইনলেস স্টিল স্ট্র্যাপ</li>
         </ul>
-        <button class="btn-order-sm" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">অর্ডার করুন</button>
+        <button class="btn-order-sm" type="button">এই ঘড়িটি সিলেক্ট করুন</button>
       </div>
     </div>
-    <div class="product-card reveal">
+
+    <div class="product-card reveal" id="prod-3" onclick="selectProduct(3)">
       <span class="tag">💎 এক্সক্লুসিভ</span>
+      <span class="selected-badge">✓ সিলেক্ট হয়েছে</span>
       <div class="product-img-wrap">
         <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=500&q=80" alt="গোল্ড এডিশন ওয়াচ">
       </div>
@@ -794,22 +845,48 @@
           <li>২ বছরের ওয়ারেন্টি</li>
           <li>লাক্সারি প্যাকেজিং</li>
         </ul>
-        <button class="btn-order-sm" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">অর্ডার করুন</button>
+        <button class="btn-order-sm" type="button">এই ঘড়িটি সিলেক্ট করুন</button>
       </div>
     </div>
+
+    <div class="product-card reveal" id="prod-4" onclick="selectProduct(4)">
+      <span class="tag">🖤 লিমিটেড</span>
+      <span class="selected-badge">✓ সিলেক্ট হয়েছে</span>
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=500&q=80" alt="ব্ল্যাক এডিশন ওয়াচ">
+      </div>
+      <div class="product-info">
+        <div class="product-name">ব্ল্যাক এডিশন ওয়াচ</div>
+        <div class="product-prices">
+          <span class="prod-old">৩,৫০০৳</span>
+          <span class="prod-new">১,২৯০৳</span>
+        </div>
+        <ul class="features-list">
+          <li>অল-ব্ল্যাক ডিজাইন</li>
+          <li>মিলিটারি গ্রেড বিল্ড</li>
+          <li>নাইট ভিশন ডায়াল</li>
+          <li>লিমিটেড কালেকশন</li>
+        </ul>
+        <button class="btn-order-sm" type="button">এই ঘড়িটি সিলেক্ট করুন</button>
+      </div>
+    </div>
+
   </div>
 </section>
 
+<!-- PAYMENT SECTION -->
 <section id="payment">
   <h2 class="sec-title reveal">পেমেন্ট <span>পদ্ধতি</span></h2>
   <p class="sec-sub reveal">আপনার সুবিধামতো যেকোনো পদ্ধতিতে পেমেন্ট করুন</p>
   <div class="divider"></div>
   <div class="payment-cards">
+
     <div class="pay-card reveal">
       <div class="pay-icon">💵</div>
       <div class="pay-title">ক্যাশ অন ডেলিভারি</div>
       <div class="pay-desc">পণ্য হাতে পেয়ে টাকা দিন। সম্পূর্ণ ঝুঁকিমুক্ত। কোনো অগ্রিম পেমেন্ট নেই।</div>
     </div>
+
     <div class="pay-card reveal">
       <div class="pay-icon">📱</div>
       <div class="pay-title">সম্পূর্ণ টাকা পরিশোধ</div>
@@ -820,6 +897,7 @@
         <small style="color:var(--gray)">পেমেন্টের পর অর্ডার ফর্ম পূরণ করুন</small>
       </div>
     </div>
+
     <div class="pay-card reveal">
       <div class="pay-icon">🚚</div>
       <div class="pay-title">শুধু ডেলিভারি চার্জ</div>
@@ -835,31 +913,52 @@
         <span>ঢাকার বাইরে:</span><span>১৩০৳</span>
       </div>
     </div>
+
   </div>
 </section>
 
+<!-- ORDER FORM -->
 <section id="order">
   <h2 class="sec-title reveal">এখনই <span>অর্ডার করুন</span></h2>
   <p class="sec-sub reveal">ফর্মটি পূরণ করুন, আমরা দ্রুত যোগাযোগ করব</p>
   <div class="divider"></div>
+
   <div class="form-wrap reveal">
     <div class="form-title">📦 অর্ডার ফর্ম</div>
+
     <form id="orderForm" onsubmit="submitOrder(event)">
+
+      <!-- Selected Product Preview -->
+      <div id="selectedProductPreview">
+        <img id="prevImg" src="" alt="">
+        <div class="prev-info">
+          <div class="prev-name" id="prevName">—</div>
+          <div class="prev-price" id="prevPrice">—</div>
+          <span class="prev-change" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">← ঘড়ি পরিবর্তন করুন</span>
+        </div>
+      </div>
+      <div id="noProductWarn" style="display:none; background:rgba(229,62,62,.1); border:1px solid rgba(229,62,62,.3); border-radius:6px; padding:10px 14px; margin-bottom:16px; font-size:.85rem; color:#fc8181; text-align:center;">
+        ⚠️ আগে উপর থেকে একটি ঘড়ি সিলেক্ট করুন
+      </div>
+
       <div class="form-group">
         <label>আপনার নাম <span>*</span></label>
         <input type="text" class="form-control" id="custName" placeholder="আপনার পূর্ণ নাম লিখুন" required>
         <div class="error-msg" id="nameErr">নাম লিখুন</div>
       </div>
+
       <div class="form-group">
         <label>মোবাইল নম্বর <span>*</span></label>
         <input type="tel" class="form-control" id="custPhone" placeholder="01XXXXXXXXX" required>
         <div class="error-msg" id="phoneErr">সঠিক মোবাইল নম্বর দিন (11 ডিজিট)</div>
       </div>
+
       <div class="form-group">
         <label>সম্পূর্ণ ঠিকানা <span>*</span></label>
         <textarea class="form-control" id="custAddress" rows="3" placeholder="বাড়ি নং, রোড, এলাকা, জেলা লিখুন" required></textarea>
         <div class="error-msg" id="addressErr">ঠিকানা লিখুন</div>
       </div>
+
       <div class="form-group">
         <label>এলাকা নির্বাচন করুন <span>*</span></label>
         <select class="form-control" id="custArea" required onchange="updateDelivery()">
@@ -869,6 +968,7 @@
         </select>
         <div class="error-msg" id="areaErr">এলাকা নির্বাচন করুন</div>
       </div>
+
       <div class="form-group">
         <label>পেমেন্ট পদ্ধতি <span>*</span></label>
         <div class="radio-group" id="payGroup">
@@ -887,6 +987,7 @@
         </div>
         <div class="error-msg" id="payErr">পেমেন্ট পদ্ধতি নির্বাচন করুন</div>
       </div>
+
       <div class="form-group">
         <label>পরিমাণ <span>*</span></label>
         <div class="qty-row">
@@ -895,24 +996,31 @@
           <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
         </div>
       </div>
+
       <div id="deliveryInfo" style="display:none; background:rgba(201,168,76,.1); border:1px solid rgba(201,168,76,.25); border-radius:6px; padding:10px 14px; margin-bottom:16px; font-size:.88rem; color:var(--light-gray);">
         ডেলিভারি চার্জ: <strong id="deliveryCharge" style="color:var(--gold)"></strong>
       </div>
+
       <button type="submit" class="btn-submit" id="submitBtn">✅ অর্ডার কনফার্ম করুন</button>
     </form>
+
     <div id="successMsg">
       <div class="check">🎉</div>
       <h3>অর্ডার সফলভাবে কনফার্ম হয়েছে!</h3>
-      <p>ধন্যবাদ! আমাদের টিম শীঘ্রই আপনার সাথে যোগাযোগ করবে।<br>১-২ কর্মদিবসের মধ্যে আপনার ঘড়ি পৌঁছে যাবে।</p>
+      <p>ধন্যবাদ! আমাদের টিম শীঘ্রই আপনার সাথে যোগাযোগ করবে।<br>
+      ১-২ কর্মদিবসের মধ্যে আপনার ঘড়ি পৌঁছে যাবে।</p>
     </div>
+
   </div>
 </section>
 
+<!-- REVIEWS -->
 <section id="reviews">
   <h2 class="sec-title reveal">গ্রাহকদের <span>মতামত</span></h2>
   <p class="sec-sub reveal">আমাদের সন্তুষ্ট গ্রাহকরা কী বলছেন</p>
   <div class="divider"></div>
   <div class="reviews-grid">
+
     <div class="review-card reveal">
       <div class="stars">★★★★★</div>
       <div class="review-text">"ঘড়ির কোয়ালিটি অনেক ভালো। হাতে খুব প্রিমিয়াম লাগে। আগে অনলাইনে অর্ডার দিতে ভয় পেতাম, কিন্তু এখানে একদম বিশ্বাসযোগ্য।"</div>
@@ -924,6 +1032,7 @@
         </div>
       </div>
     </div>
+
     <div class="review-card reveal">
       <div class="stars">★★★★★</div>
       <div class="review-text">"ছবির চেয়েও সুন্দর ছিল। ডেলিভারিও অনেক দ্রুত পেয়েছি। পরিবারের সবাইকে এই শপ থেকে অর্ডার করতে বলব।"</div>
@@ -935,6 +1044,7 @@
         </div>
       </div>
     </div>
+
     <div class="review-card reveal">
       <div class="stars">★★★★★</div>
       <div class="review-text">"এই দামে এত ভালো ঘড়ি আশা করিনি। সত্যিই অবাক হয়ে গেছি। বাকি সব জিনিসও এখান থেকে নেব।"</div>
@@ -946,6 +1056,7 @@
         </div>
       </div>
     </div>
+
     <div class="review-card reveal">
       <div class="stars">★★★★★</div>
       <div class="review-text">"অর্ডার করার পর খুব দ্রুত যোগাযোগ করেছে। ক্যাশ অন ডেলিভারি সুবিধা থাকায় নিশ্চিন্তে অর্ডার দিতে পেরেছি।"</div>
@@ -957,9 +1068,11 @@
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
+<!-- TRUST SECTION -->
 <section id="trust">
   <h2 class="sec-title reveal">কেন <span>Ketu's Mart</span> বেছে নেবেন?</h2>
   <div class="divider"></div>
@@ -987,6 +1100,7 @@
   </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact">
   <div class="contact-wrap">
     <h2 class="sec-title reveal">আমাদের সাথে <span>যোগাযোগ করুন</span></h2>
@@ -1005,6 +1119,7 @@
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-brand">Ketu's Mart</div>
   <p>বাংলাদেশের বিশ্বস্ত প্রিমিয়াম ঘড়ির অনলাইন শপ</p>
@@ -1012,16 +1127,53 @@
   <p style="margin-top:4px" class="gold-text">Powered by Ketu's Mart</p>
 </footer>
 
+<!-- FLOATING WHATSAPP -->
 <a href="https://wa.me/8801950137472" class="float-wa" target="_blank" title="WhatsApp করুন">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
+<!-- STICKY CTA -->
 <div class="sticky-cta">
   <a href="#order">🛒 এখনই অর্ডার করুন — স্টক সীমিত!</a>
 </div>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- EmailJS Library -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 <script>
+// ── PRODUCT SELECTION ──
+const products = {
+  1: { name: 'লাক্সারি ক্লাসিক রিস্টওয়াচ', price: '৯৯০৳', img: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=500&q=80' },
+  2: { name: 'প্রিমিয়াম স্পোর্টস ওয়াচ',   price: '১,১৯০৳', img: 'https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=500&q=80' },
+  3: { name: 'গোল্ড এডিশন ওয়াচ',           price: '১,৪৯০৳', img: 'https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=500&q=80' },
+  4: { name: 'ব্ল্যাক এডিশন ওয়াচ',         price: '১,২৯০৳', img: 'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=500&q=80' }
+};
+let selectedProduct = null;
+
+function selectProduct(id) {
+  selectedProduct = products[id];
+
+  // highlight card
+  document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('prod-' + id).classList.add('selected');
+
+  // update btn text
+  document.querySelectorAll('.btn-order-sm').forEach(b => b.textContent = 'এই ঘড়িটি সিলেক্ট করুন');
+  document.querySelector('#prod-' + id + ' .btn-order-sm').textContent = '✓ সিলেক্ট হয়েছে';
+
+  // show preview in form
+  document.getElementById('prevImg').src  = selectedProduct.img;
+  document.getElementById('prevName').textContent  = selectedProduct.name;
+  document.getElementById('prevPrice').textContent = selectedProduct.price;
+  document.getElementById('selectedProductPreview').style.display = 'flex';
+  document.getElementById('noProductWarn').style.display = 'none';
+
+  // scroll to order
+  setTimeout(() => {
+    document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+  }, 300);
+}
+
 // ── LOADER ──
 window.addEventListener('load', () => {
   setTimeout(() => {
@@ -1083,7 +1235,7 @@ function updateDelivery() {
   }
 }
 
-// ── VALIDATION ──
+// ── FORM VALIDATION ──
 function validateForm() {
   let valid = true;
   const name = document.getElementById('custName').value.trim();
@@ -1091,6 +1243,15 @@ function validateForm() {
   const address = document.getElementById('custAddress').value.trim();
   const area = document.getElementById('custArea').value;
   const pay = document.querySelector('input[name="payment"]:checked');
+
+  // product check
+  if (!selectedProduct) {
+    document.getElementById('noProductWarn').style.display = 'block';
+    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+    valid = false;
+  } else {
+    document.getElementById('noProductWarn').style.display = 'none';
+  }
 
   if (!name) { show('nameErr'); valid = false; } else hide('nameErr');
   if (!/^01[3-9]\d{8}$/.test(phone)) { show('phoneErr'); valid = false; } else hide('phoneErr');
@@ -1102,9 +1263,10 @@ function validateForm() {
 function show(id) { document.getElementById(id).style.display = 'block'; }
 function hide(id) { document.getElementById(id).style.display = 'none'; }
 
-// ── EMAILJS SUBMIT ──
-emailjs.init({ publicKey: "nJeNfJEo6_6JzsFOq" });
+// ── EmailJS INITIALIZATION ──
+emailjs.init("nJeNfJEo6_6JzsFOq");
 
+// ── SUBMIT ORDER WITH EMAILJS ──
 async function submitOrder(e) {
   e.preventDefault();
   if (!validateForm()) return;
@@ -1113,48 +1275,58 @@ async function submitOrder(e) {
   btn.disabled = true;
   btn.textContent = '⏳ পাঠানো হচ্ছে...';
 
-  const name = document.getElementById('custName').value.trim();
-  const phone = document.getElementById('custPhone').value.trim();
-  const address = document.getElementById('custAddress').value.trim();
-  const areaSelect = document.getElementById('custArea');
-  let area = areaSelect.value === 'dhaka' ? 'ঢাকা' : 'ঢাকার বাইরে';
-  if (areaSelect.value === '') area = 'নির্বাচন করেনি';
-  const paymentRadio = document.querySelector('input[name="payment"]:checked');
-  let payment = '';
-  if (paymentRadio) {
-    if (paymentRadio.value === 'cash_on_delivery') payment = 'ক্যাশ অন ডেলিভারি';
-    else if (paymentRadio.value === 'full_payment') payment = 'সম্পূর্ণ টাকা পরিশোধ (bKash)';
-    else payment = 'শুধু ডেলিভারি চার্জ (bKash)';
-  } else { payment = 'নির্বাচন করেনি'; }
-  const qty = document.getElementById('custQty').value;
-  const time = new Date().toLocaleString('bn-BD', { timeZone: 'Asia/Dhaka' });
-
+  // Get payment method text
+  let paymentMethod = document.querySelector('input[name="payment"]:checked');
+  let paymentText = paymentMethod ? paymentMethod.parentElement.querySelector('.radio-label').innerText : '';
+  
+  // Get area text
+  let areaSelect = document.getElementById('custArea');
+  let areaText = areaSelect.value === 'dhaka' ? 'ঢাকা' : (areaSelect.value === 'outside' ? 'ঢাকার বাইরে' : '');
+  
+  // Prepare email template parameters
   const templateParams = {
-    customer_name: name,
-    phone: phone,
-    address: address,
-    area: area,
-    payment: payment,
-    qty: qty + ' পিস',
-    time: time
+    to_name: "Ketu's Mart Admin",
+    from_name: document.getElementById('custName').value.trim(),
+    customer_phone: document.getElementById('custPhone').value.trim(),
+    customer_address: document.getElementById('custAddress').value.trim(),
+    customer_area: areaText,
+    product_name: selectedProduct.name,
+    product_price: selectedProduct.price,
+    quantity: document.getElementById('custQty').value,
+    payment_method: paymentText,
+    order_time: new Date().toLocaleString('bn-BD'),
+    message: `অর্ডারের বিবরণ:
+পণ্য: ${selectedProduct.name}
+দাম: ${selectedProduct.price}
+পরিমাণ: ${document.getElementById('custQty').value}
+পেমেন্ট পদ্ধতি: ${paymentText}
+ঠিকানা: ${document.getElementById('custAddress').value.trim()}, ${areaText}
+মোবাইল: ${document.getElementById('custPhone').value.trim()}`
   };
 
   try {
     await emailjs.send('service_qu1fxng', 'template_cploz6b', templateParams);
+    
     document.getElementById('orderForm').style.display = 'none';
     document.getElementById('successMsg').style.display = 'block';
     document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth', block: 'center' });
   } catch (error) {
-    alert('দুঃখিত! অর্ডার পাঠাতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+    console.error('EmailJS error:', error);
+    alert('দুঃখিত, অর্ডার পাঠাতে সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন বা WhatsApp এ যোগাযোগ করুন।');
+  } finally {
     btn.disabled = false;
     btn.textContent = '✅ অর্ডার কনফার্ম করুন';
   }
 }
 
-// ── COUNTDOWN ──
+// ── COUNTDOWN TIMER — প্রতি ১ দিন পরপর স্বয়ংক্রিয়ভাবে রিসেট ──
 (function() {
-  const CYCLE = 1 * 24 * 60 * 60 * 1000;
+  // প্রতিটি সাইকেল = ১ দিন (86400 সেকেন্ড)
+  const CYCLE = 1 * 24 * 60 * 60 * 1000; // 1 day in ms
   const KEY   = 'ketu_cycle_start';
+
+  // সাইকেল শুরুর সময় localStorage-এ রাখি
+  // যদি না থাকে বা মেয়াদ শেষ হয়ে যায়, নতুন সাইকেল শুরু করি
   function getOrResetCycleStart() {
     let start = localStorage.getItem(KEY);
     if (!start) {
@@ -1162,6 +1334,7 @@ async function submitOrder(e) {
       localStorage.setItem(KEY, start);
     } else {
       start = parseInt(start);
+      // যদি ১ দিন পেরিয়ে গেছে → রিসেট করো
       while (Date.now() >= start + CYCLE) {
         start += CYCLE;
         localStorage.setItem(KEY, start);
@@ -1169,13 +1342,16 @@ async function submitOrder(e) {
     }
     return start;
   }
+
   const elD  = document.getElementById('t-days');
   const elH  = document.getElementById('t-hours');
   const elM  = document.getElementById('t-mins');
   const elS  = document.getElementById('t-secs');
   const fill = document.getElementById('timer-fill');
   const pct  = document.getElementById('pct-label');
+
   function pad(n) { return String(n).padStart(2, '0'); }
+
   function flipEl(el, val) {
     const v = pad(val);
     if (el.textContent !== v) {
@@ -1185,25 +1361,33 @@ async function submitOrder(e) {
       el.textContent = v;
     }
   }
+
   function tick() {
     const cycleStart = getOrResetCycleStart();
-    const remaining  = Math.max(0, Math.floor((cycleStart + CYCLE - Date.now()) / 1000));
+    const cycleEnd   = cycleStart + CYCLE;
+    const remaining  = Math.max(0, Math.floor((cycleEnd - Date.now()) / 1000));
+
     const days  = Math.floor(remaining / 86400);
     const hours = Math.floor((remaining % 86400) / 3600);
     const mins  = Math.floor((remaining % 3600) / 60);
     const secs  = remaining % 60;
+
     flipEl(elD, days);
     flipEl(elH, hours);
     flipEl(elM, mins);
     flipEl(elS, secs);
+
+    // progress bar
     const ratio  = remaining / (CYCLE / 1000);
     const pctVal = Math.round(ratio * 100);
     fill.style.width = pctVal + '%';
     pct.textContent  = pctVal + '% বাকি';
   }
+
   tick();
   setInterval(tick, 1000);
 })();
 </script>
+
 </body>
 </html>
