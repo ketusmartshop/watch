@@ -3,1068 +3,951 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Ketu's Mart - বাংলাদেশের বিশ্বস্ত প্রিমিয়াম ঘড়ির অনলাইন শপ। ক্যাশ অন ডেলিভারি সুবিধা।">
-<title>Ketu's Mart | প্রিমিয়াম রিস্টওয়াচ</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<title>Ketu's Mart | প্রিমিয়াম ঘড়ি কালেকশন</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
   :root {
     --gold: #C9A84C;
     --gold-light: #E8C96A;
-    --gold-dark: #9A7A2E;
+    --gold-dark: #8B6914;
     --black: #0A0A0A;
     --dark: #111111;
     --dark2: #1A1A1A;
     --dark3: #222222;
-    --gray: #888888;
-    --light-gray: #CCCCCC;
-    --white: #FFFFFF;
-    --off-white: #F5F0E8;
-    --red: #E53E3E;
-    --green: #25D366;
-    --bg: #0D0D0D;
+    --dark4: #2C2C2C;
+    --white: #F5F0E8;
+    --white2: #EDE5D0;
+    --gray: #888880;
+    --text: #D4C9A8;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     font-family: 'Hind Siliguri', sans-serif;
-    background: var(--bg);
+    background: var(--black);
     color: var(--white);
     overflow-x: hidden;
-    font-size: 16px;
-    line-height: 1.6;
   }
 
-  /* ── LOADER ── */
-  #loader {
-    position: fixed; inset: 0; background: var(--black); z-index: 9999;
-    display: flex; align-items: center; justify-content: center; flex-direction: column;
-    gap: 20px; transition: opacity .5s ease;
-  }
-  #loader .logo-text {
-    font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold);
-    letter-spacing: 4px;
-  }
-  .loader-ring {
-    width: 50px; height: 50px; border: 3px solid var(--dark3);
-    border-top-color: var(--gold); border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ── HEADER ── */
-  header {
-    position: fixed; top: 0; width: 100%; z-index: 900;
-    background: rgba(10,10,10,.96); backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(201,168,76,.25);
-  }
-  /* top urgency strip inside header */
-  .header-urgency {
-    background: linear-gradient(90deg, #1a0e00, #2a1a00, #1a0e00);
-    border-bottom: 1px solid rgba(201,168,76,.2);
-    padding: 6px 16px;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    font-size: .78rem; font-weight: 600; color: var(--gold-light);
-    letter-spacing: .3px; text-align: center;
-    overflow: hidden; position: relative;
-  }
-  .header-urgency::before {
-    content: '';
-    position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(201,168,76,.08), transparent);
-    animation: sweep 3.5s linear infinite;
-  }
-  @keyframes sweep { to { left: 160%; } }
-  .hu-dot { width: 6px; height: 6px; border-radius: 50%; background: #ff4444; animation: blink2 1s ease infinite; flex-shrink: 0; }
-  @keyframes blink2 { 0%,100%{opacity:1} 50%{opacity:0.2} }
-  /* main nav row */
-  .header-nav {
-    padding: 11px 20px; display: flex; align-items: center; justify-content: space-between;
-  }
-  .brand {
-    font-family: 'Playfair Display', serif; font-size: 1.35rem;
-    color: var(--gold); letter-spacing: 2px; text-decoration: none;
-  }
-  .header-cta {
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    color: var(--black); font-weight: 700; font-size: .82rem;
-    padding: 8px 16px; border-radius: 4px; text-decoration: none; border: none; cursor: pointer;
-    font-family: 'Hind Siliguri', sans-serif;
-    box-shadow: 0 2px 12px rgba(201,168,76,.35);
-    transition: transform .2s, box-shadow .2s;
-  }
-  .header-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(201,168,76,.5); }
-
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh; position: relative; overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-    padding-top: 88px;
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 60% 50%, #1a1400 0%, #0A0A0A 60%),
-                url('https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1400&q=80') center/cover no-repeat;
-    background-blend-mode: multiply;
-  }
-  .hero-bg::after {
-    content:''; position:absolute; inset:0;
-    background: linear-gradient(180deg, rgba(10,10,10,0) 40%, rgba(10,10,10,1) 100%);
-  }
-  .hero-content {
-    position: relative; z-index: 2; text-align: center; padding: 40px 20px 80px;
-    max-width: 600px;
-  }
-  .badge-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
-  .badge {
-    background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.4);
-    color: var(--gold-light); font-size: .75rem; padding: 4px 12px; border-radius: 20px;
-    font-weight: 500; letter-spacing: .5px;
-    animation: fadeInDown .6s ease both;
-  }
-  .badge:nth-child(2) { animation-delay: .1s; }
-  .badge:nth-child(3) { animation-delay: .2s; }
-  .hero-title {
-    font-family: 'Playfair Display', serif; font-size: clamp(2rem, 8vw, 3.2rem);
-    line-height: 1.2; margin-bottom: 16px; color: var(--white);
-    animation: fadeInUp .7s .2s ease both;
-  }
-  .hero-title span { color: var(--gold); }
-  .hero-sub {
-    color: var(--light-gray); font-size: 1rem; margin-bottom: 30px;
-    animation: fadeInUp .7s .35s ease both;
-  }
-  .hero-price-row {
-    display: flex; align-items: center; justify-content: center; gap: 14px;
-    margin-bottom: 28px; animation: fadeInUp .7s .45s ease both;
-  }
-  .price-old { color: var(--gray); text-decoration: line-through; font-size: 1rem; }
-  .price-new { color: var(--gold); font-size: 1.8rem; font-weight: 700; }
-  .price-save {
-    background: var(--red); color: white; font-size: .75rem; padding: 3px 8px;
-    border-radius: 4px; font-weight: 600;
-  }
-  .btn-primary {
-    display: inline-block; background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
-    color: var(--black); font-weight: 700; font-size: 1.1rem;
-    padding: 16px 40px; border-radius: 6px; text-decoration: none; border: none;
-    cursor: pointer; font-family: 'Hind Siliguri', sans-serif;
-    box-shadow: 0 4px 24px rgba(201,168,76,.45);
-    animation: fadeInUp .7s .55s ease both, pulse 2.5s 1.5s ease infinite;
-    transition: transform .2s, box-shadow .2s;
-    letter-spacing: .5px;
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,.6); }
-  @keyframes pulse {
-    0%,100% { box-shadow: 0 4px 24px rgba(201,168,76,.45); }
-    50% { box-shadow: 0 4px 32px rgba(201,168,76,.75); }
-  }
-  .trust-row {
-    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
-    margin-top: 28px; animation: fadeInUp .7s .65s ease both;
-  }
-  .trust-item { display: flex; align-items: center; gap: 6px; font-size: .82rem; color: var(--light-gray); }
-  .trust-item .ico { color: var(--gold); font-size: 1rem; }
-
-  /* ── URGENCY BAR ── */
-  .urgency-bar {
-    background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
-    color: var(--black); text-align: center; padding: 9px 20px;
-    font-weight: 700; font-size: .85rem; letter-spacing: .5px;
-  }
-
-  /* ── COUNTDOWN TIMER ── */
-  #countdown-section {
-    background: linear-gradient(135deg, #0f0900 0%, #1a1000 40%, #0f0900 100%);
-    border-top: 1px solid rgba(201,168,76,.3);
-    border-bottom: 2px solid rgba(201,168,76,.4);
-    padding: 28px 20px 32px;
+  /* ===== OFFER TIMER BAR ===== */
+  .offer-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1100;
+    background: linear-gradient(90deg, #7a1a00, #c0320a, #e84c1a, #c0320a, #7a1a00);
+    background-size: 200% 100%;
+    animation: barShift 4s linear infinite;
+    padding: 0.55rem 1rem;
     text-align: center;
-    position: relative;
-    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    gap: 1rem; flex-wrap: wrap;
   }
-  #countdown-section::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 50% 50%, rgba(201,168,76,.08) 0%, transparent 70%);
-    pointer-events: none;
+  @keyframes barShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
   }
-  /* animated corner sparks */
-  #countdown-section::after {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent 0%, var(--gold-light) 50%, transparent 100%);
-    animation: scan 3s linear infinite;
+  .offer-bar-text {
+    color: #fff; font-size: 0.82rem; font-weight: 600;
+    letter-spacing: 0.3px;
+    display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+    justify-content: center;
   }
-  @keyframes scan {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+  .offer-bar-text .fire { font-size: 1rem; }
+  .offer-bar-label {
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 4px; padding: 0.1rem 0.5rem;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 1px;
+    color: #FFE082;
   }
-  .timer-eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.3);
-    color: var(--gold-light); font-size: .78rem; font-weight: 700;
-    padding: 5px 14px; border-radius: 20px; letter-spacing: 1px;
-    text-transform: uppercase; margin-bottom: 14px;
-    animation: fadeInDown .5s ease both;
-  }
-  .timer-eyebrow .dot-blink {
-    width: 7px; height: 7px; border-radius: 50%; background: #ff4444;
-    animation: blink 1s ease infinite;
-    flex-shrink: 0;
-  }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-  .timer-headline {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.1rem, 4vw, 1.55rem);
-    color: var(--white); margin-bottom: 6px;
-    animation: fadeInUp .5s .1s ease both;
-  }
-  .timer-headline span { color: var(--gold); }
-  .timer-sub {
-    color: var(--gray); font-size: .82rem; margin-bottom: 22px;
-    animation: fadeInUp .5s .18s ease both;
-  }
-
-  .timer-blocks {
-    display: inline-flex; align-items: center; gap: 10px;
-    animation: fadeInUp .5s .25s ease both;
-  }
-  .timer-unit {
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
+  .timer-boxes {
+    display: flex; align-items: center; gap: 4px;
   }
   .timer-box {
-    position: relative;
-    width: clamp(62px, 16vw, 82px);
-    height: clamp(62px, 16vw, 82px);
-    background: linear-gradient(145deg, #1e1600, #120e00);
-    border: 1.5px solid rgba(201,168,76,.35);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow:
-      0 0 0 1px rgba(201,168,76,.08),
-      0 4px 20px rgba(0,0,0,.5),
-      inset 0 1px 0 rgba(201,168,76,.15);
-    overflow: hidden;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 5px;
+    min-width: 38px; padding: 0.1rem 0.4rem;
+    text-align: center;
   }
-  .timer-box::before {
-    content: '';
-    position: absolute; top: 50%; left: 0; right: 0; height: 1px;
-    background: rgba(201,168,76,.12);
-  }
-  /* flip-card shine overlay */
-  .timer-box::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,.04) 0%, transparent 50%);
-    border-radius: 10px;
-  }
-  .timer-num {
+  .timer-box .t-num {
+    display: block; font-size: 1rem; font-weight: 700;
+    color: #FFE082; line-height: 1.2;
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.6rem, 5vw, 2.1rem);
-    font-weight: 700; color: var(--gold-light);
-    line-height: 1;
-    text-shadow: 0 0 20px rgba(201,168,76,.5);
-    transition: transform .15s ease, opacity .15s ease;
+  }
+  .timer-box .t-lbl {
+    display: block; font-size: 0.58rem; color: rgba(255,255,255,0.75);
+    letter-spacing: 0.5px;
+  }
+  .timer-sep { color: #FFE082; font-size: 1rem; font-weight: 700; margin: 0 1px; }
+  .offer-bar-end {
+    color: rgba(255,255,255,0.85); font-size: 0.78rem; font-weight: 500;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    position: fixed; top: var(--bar-h, 40px); left: 0; right: 0; z-index: 1000;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 1px;
+    text-decoration: none;
+  }
+  .logo span { color: var(--white); }
+  nav { display: flex; gap: 2rem; }
+  nav a {
+    color: var(--text); text-decoration: none;
+    font-size: 0.9rem; font-weight: 500;
+    transition: color 0.3s;
+  }
+  nav a:hover { color: var(--gold); }
+  .header-cta {
+    background: var(--gold); color: var(--black);
+    border: none; padding: 0.5rem 1.2rem;
+    border-radius: 4px; font-family: 'Hind Siliguri', sans-serif;
+    font-size: 0.85rem; font-weight: 700;
+    cursor: pointer; transition: background 0.3s;
+    text-decoration: none;
+  }
+  .header-cta:hover { background: var(--gold-light); }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0A0A0A 0%, #1A1208 50%, #0A0A0A 100%);
+    display: flex; align-items: center;
+    padding: var(--hero-pt, 148px) 5% 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -50%; left: -20%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -30%; right: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { max-width: 600px; z-index: 1; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    padding: 0.3rem 1rem;
+    border-radius: 50px; font-size: 0.8rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+  }
+  .hero h1 .highlight {
+    color: var(--gold);
+    display: block;
+  }
+  .hero p {
+    font-size: 1.1rem; line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    border: none; padding: 0.9rem 2rem;
+    border-radius: 4px;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    cursor: pointer; transition: all 0.3s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--gold);
+    border: 1.5px solid var(--gold);
+    padding: 0.9rem 2rem; border-radius: 4px;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 1rem; font-weight: 600;
+    cursor: pointer; transition: all 0.3s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-outline:hover { background: rgba(201,168,76,0.1); transform: translateY(-2px); }
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--gold); display: block;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--gray); }
+  .hero-image {
+    flex: 1; display: flex; justify-content: center; align-items: center;
     position: relative; z-index: 1;
   }
-  .timer-num.flip {
-    animation: flipNum .25s ease;
+  .watch-showcase {
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #3a2d10, #1a1208, #0a0a0a);
+    border: 2px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8rem;
+    box-shadow: 0 0 80px rgba(201,168,76,0.15), inset 0 0 40px rgba(0,0,0,0.5);
+    animation: float 4s ease-in-out infinite;
   }
-  @keyframes flipNum {
-    0%  { transform: translateY(-8px); opacity: 0; }
-    100%{ transform: translateY(0);    opacity: 1; }
-  }
-  .timer-label {
-    font-size: clamp(.68rem, 2.5vw, .78rem);
-    color: var(--gray); letter-spacing: 1.5px; text-transform: uppercase;
-    font-weight: 500;
-  }
-  .timer-sep {
-    font-size: clamp(1.4rem, 5vw, 2rem); color: var(--gold);
-    font-weight: 700; margin-bottom: 20px; line-height: 1;
-    animation: blink 1s ease infinite;
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
   }
 
-  .timer-progress-wrap {
-    max-width: 420px; margin: 20px auto 0;
-    animation: fadeInUp .5s .35s ease both;
+  /* ===== TRUST BADGES ===== */
+  .trust-bar {
+    background: var(--dark2);
+    border-top: 1px solid rgba(201,168,76,0.2);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 1.2rem 5%;
+    display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
   }
-  .timer-progress-label {
-    display: flex; justify-content: space-between;
-    font-size: .75rem; color: var(--gray); margin-bottom: 6px;
+  .trust-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    color: var(--text); font-size: 0.85rem;
   }
-  .timer-progress-label span:last-child { color: var(--gold); }
-  .timer-progress-bar {
-    height: 5px; background: rgba(255,255,255,.08); border-radius: 10px; overflow: hidden;
-  }
-  .timer-progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
-    border-radius: 10px;
-    transition: width 1s linear;
-    box-shadow: 0 0 8px rgba(201,168,76,.5);
-  }
-  .timer-cta-row {
-    margin-top: 20px;
-    animation: fadeInUp .5s .42s ease both;
-  }
-  .timer-cta {
+  .trust-icon { color: var(--gold); font-size: 1.1rem; }
+
+  /* ===== SECTION STYLES ===== */
+  section { padding: 80px 5%; }
+  .section-tag {
     display: inline-block;
-    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
-    color: var(--black); font-weight: 700; font-size: .92rem;
-    padding: 11px 28px; border-radius: 6px; text-decoration: none;
-    border: none; cursor: pointer; font-family: 'Hind Siliguri', sans-serif;
-    box-shadow: 0 3px 16px rgba(201,168,76,.4);
-    transition: transform .2s, box-shadow .2s;
+    color: var(--gold); font-size: 0.8rem;
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 0.8rem;
   }
-  .timer-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(201,168,76,.55); }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 700; color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+  .section-sub {
+    color: var(--text); font-size: 1rem;
+    line-height: 1.7; max-width: 580px;
+  }
+  .section-header { margin-bottom: 3rem; }
 
-  /* ── SECTION WRAPPER ── */
-  section { padding: 60px 20px; }
-  .sec-title {
-    text-align: center; font-family: 'Playfair Display', serif;
-    font-size: clamp(1.5rem, 5vw, 2.2rem); margin-bottom: 8px;
-  }
-  .sec-title span { color: var(--gold); }
-  .sec-sub { text-align: center; color: var(--gray); font-size: .92rem; margin-bottom: 40px; }
-  .divider {
-    width: 60px; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 12px auto 40px;
-  }
-
-  /* ── PRODUCTS ── */
-  #products { background: var(--dark2); }
+  /* ===== PRODUCTS ===== */
+  #products { background: var(--dark); }
   .products-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px; max-width: 1100px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
   }
   .product-card {
-    background: var(--dark3); border: 1px solid rgba(201,168,76,.15);
+    background: var(--dark2);
+    border: 1.5px solid rgba(201,168,76,0.15);
     border-radius: 12px; overflow: hidden;
-    transition: transform .3s, box-shadow .3s;
+    cursor: pointer;
+    transition: all 0.3s ease;
     position: relative;
   }
-  .product-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(201,168,76,.2); }
-  .product-card .tag {
-    position: absolute; top: 12px; left: 12px; z-index: 3;
-    background: var(--red); color: white; font-size: .72rem; padding: 3px 9px;
-    border-radius: 3px; font-weight: 700;
+  .product-card:hover {
+    border-color: rgba(201,168,76,0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   }
-  .product-img-wrap { position: relative; overflow: hidden; aspect-ratio: 1/1; }
-  .product-img-wrap img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform .5s ease;
-  }
-  .product-card:hover .product-img-wrap img { transform: scale(1.06); }
-  .product-info { padding: 16px; }
-  .product-name { font-weight: 700; font-size: 1rem; margin-bottom: 10px; }
-  .product-prices { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-  .prod-old { color: var(--gray); text-decoration: line-through; font-size: .85rem; }
-  .prod-new { color: var(--gold); font-weight: 700; font-size: 1.2rem; }
-  .features-list { list-style: none; display: flex; flex-direction: column; gap: 5px; margin-bottom: 16px; }
-  .features-list li { font-size: .82rem; color: var(--light-gray); display: flex; align-items: center; gap: 6px; }
-  .features-list li::before { content: '✓'; color: var(--gold); font-weight: 700; }
-  .btn-order-sm {
-    width: 100%; padding: 12px; background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
-    color: var(--black); font-weight: 700; border: none; border-radius: 6px;
-    cursor: pointer; font-family: 'Hind Siliguri', sans-serif; font-size: .95rem;
-    transition: opacity .2s, transform .2s;
-  }
-  .btn-order-sm:hover { opacity: .88; transform: translateY(-1px); }
-
-  /* product selected state */
   .product-card.selected {
     border-color: var(--gold);
-    box-shadow: 0 0 0 2px rgba(201,168,76,.4), 0 12px 40px rgba(201,168,76,.25);
-  }
-  .product-card.selected .btn-order-sm {
-    background: linear-gradient(135deg, #2ecc71, #27ae60);
-    color: white;
+    box-shadow: 0 0 0 2px rgba(201,168,76,0.3), 0 20px 40px rgba(0,0,0,0.4);
   }
   .selected-badge {
-    display: none; position: absolute; top: 12px; right: 12px; z-index: 4;
-    background: #2ecc71; color: white; font-size: .72rem; font-weight: 700;
-    padding: 4px 10px; border-radius: 20px;
+    position: absolute; top: 12px; right: 12px;
+    background: var(--gold); color: var(--black);
+    font-size: 0.7rem; font-weight: 700;
+    padding: 0.2rem 0.6rem; border-radius: 50px;
+    display: none;
   }
   .product-card.selected .selected-badge { display: block; }
-
-  /* selected product preview in form */
-  #selectedProductPreview {
-    display: none;
-    background: rgba(201,168,76,.1); border: 1px solid rgba(201,168,76,.3);
-    border-radius: 8px; padding: 12px 14px; margin-bottom: 16px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  #selectedProductPreview img {
-    width: 52px; height: 52px; border-radius: 6px; object-fit: cover; flex-shrink: 0;
-  }
-  #selectedProductPreview .prev-info { flex: 1; }
-  #selectedProductPreview .prev-name { font-weight: 700; font-size: .9rem; color: var(--white); }
-  #selectedProductPreview .prev-price { font-size: .82rem; color: var(--gold); margin-top: 2px; }
-  #selectedProductPreview .prev-change {
-    font-size: .75rem; color: var(--gray); cursor: pointer; text-decoration: underline;
-    margin-top: 4px; display: inline-block;
-  }
-
-  /* ── PAYMENT SECTION ── */
-  #payment { background: var(--dark); }
-  .payment-cards {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px; max-width: 900px; margin: 0 auto;
-  }
-  .pay-card {
-    background: var(--dark3); border: 1px solid rgba(201,168,76,.2);
-    border-radius: 12px; padding: 24px;
-    transition: border-color .3s, transform .3s;
-  }
-  .pay-card:hover { border-color: var(--gold); transform: translateY(-4px); }
-  .pay-icon { font-size: 2rem; margin-bottom: 10px; }
-  .pay-title { font-weight: 700; font-size: 1.05rem; color: var(--gold); margin-bottom: 8px; }
-  .pay-desc { font-size: .88rem; color: var(--light-gray); line-height: 1.7; }
-  .pay-number {
-    display: inline-block; background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.3);
-    color: var(--gold); font-weight: 700; padding: 4px 12px; border-radius: 4px;
-    margin-top: 8px; font-size: .9rem; letter-spacing: 1px;
-  }
-  .charge-row { display: flex; justify-content: space-between; font-size: .85rem; margin-top: 8px; }
-  .charge-row span:first-child { color: var(--light-gray); }
-  .charge-row span:last-child { color: var(--gold); font-weight: 700; }
-
-  /* ── ORDER FORM ── */
-  #order { background: var(--dark2); }
-  .form-wrap {
-    max-width: 560px; margin: 0 auto;
-    background: var(--dark3); border: 1px solid rgba(201,168,76,.2);
-    border-radius: 16px; padding: 32px 28px;
-    box-shadow: 0 8px 40px rgba(0,0,0,.5);
-  }
-  .form-title {
-    font-family: 'Playfair Display', serif; font-size: 1.4rem;
-    color: var(--gold); text-align: center; margin-bottom: 24px;
-  }
-  .form-group { margin-bottom: 16px; }
-  .form-group label {
-    display: block; font-size: .88rem; font-weight: 600;
-    margin-bottom: 6px; color: var(--light-gray);
-  }
-  .form-group label span { color: var(--red); }
-  .form-control {
-    width: 100%; background: var(--dark); border: 1px solid rgba(201,168,76,.2);
-    color: var(--white); padding: 12px 14px; border-radius: 6px;
-    font-family: 'Hind Siliguri', sans-serif; font-size: .95rem;
-    transition: border-color .2s, box-shadow .2s;
-    outline: none;
-    -webkit-appearance: none;
-  }
-  .form-control:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,.15); }
-  .form-control option { background: var(--dark3); }
-  .qty-row { display: flex; align-items: center; gap: 0; }
-  .qty-btn {
-    background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.3);
-    color: var(--gold); font-size: 1.2rem; width: 40px; height: 44px;
-    cursor: pointer; border-radius: 6px 0 0 6px; transition: background .2s;
+  .product-img {
+    width: 100%; height: 200px;
+    background: radial-gradient(circle at 40% 40%, #2a2010, #141008, #0a0a0a);
     display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
+    font-size: 5rem;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    position: relative; overflow: hidden;
   }
-  .qty-btn:last-child { border-radius: 0 6px 6px 0; }
-  .qty-btn:hover { background: rgba(201,168,76,.3); }
-  .qty-input {
-    flex: 1; text-align: center; border-radius: 0;
-    border-left: none; border-right: none;
+  .product-img::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 40px;
+    background: linear-gradient(transparent, rgba(26,18,8,0.5));
   }
-  .radio-group { display: flex; flex-direction: column; gap: 10px; }
-  .radio-item {
-    display: flex; align-items: center; gap: 10px;
-    background: var(--dark); border: 1px solid rgba(201,168,76,.15);
-    padding: 12px 14px; border-radius: 6px; cursor: pointer;
-    transition: border-color .2s;
+  .product-info { padding: 1.2rem; }
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--white); margin-bottom: 0.3rem;
   }
-  .radio-item:has(input:checked),
-  .radio-item.checked { border-color: var(--gold); background: rgba(201,168,76,.07); }
-  .radio-item input[type=radio] { accent-color: var(--gold); width: 16px; height: 16px; flex-shrink: 0; }
-  .radio-label { font-size: .9rem; font-weight: 500; }
-  .btn-submit {
-    width: 100%; padding: 16px; margin-top: 8px;
-    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
-    color: var(--black); font-weight: 700; font-size: 1.1rem;
-    border: none; border-radius: 8px; cursor: pointer;
-    font-family: 'Hind Siliguri', sans-serif; letter-spacing: .5px;
-    box-shadow: 0 4px 20px rgba(201,168,76,.4);
-    transition: opacity .2s, transform .2s; position: relative;
+  .product-price {
+    color: var(--gold); font-size: 1.3rem; font-weight: 700;
+    margin-bottom: 0.8rem;
   }
-  .btn-submit:hover { transform: translateY(-1px); opacity: .92; }
-  .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
-  .error-msg { color: var(--red); font-size: .8rem; margin-top: 4px; display: none; }
-  #successMsg {
-    display: none; text-align: center; padding: 24px;
-    background: rgba(37,211,102,.1); border: 1px solid rgba(37,211,102,.3);
-    border-radius: 10px; margin-top: 16px;
+  .product-price span { font-size: 0.85rem; color: var(--gray); font-weight: 400; }
+  .product-desc {
+    color: var(--text); font-size: 0.88rem; line-height: 1.7;
+    margin-bottom: 1rem;
   }
-  #successMsg .check { font-size: 3rem; margin-bottom: 12px; }
-  #successMsg h3 { color: var(--green); margin-bottom: 8px; }
-  #successMsg p { color: var(--light-gray); font-size: .92rem; }
+  .product-features { list-style: none; margin-bottom: 1rem; }
+  .product-features li {
+    color: var(--text); font-size: 0.82rem;
+    padding: 0.2rem 0; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .product-features li::before { content: '✦'; color: var(--gold); font-size: 0.6rem; }
+  .select-btn {
+    width: 100%;
+    background: transparent;
+    border: 1.5px solid rgba(201,168,76,0.4);
+    color: var(--gold); padding: 0.7rem;
+    border-radius: 6px;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .product-card.selected .select-btn {
+    background: var(--gold); color: var(--black);
+    border-color: var(--gold);
+  }
+  .select-btn:hover { background: rgba(201,168,76,0.15); }
 
-  /* ── REVIEWS ── */
+  /* ===== ORDER FORM ===== */
+  #order { background: var(--black); }
+  .order-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: start;
+  }
+  .order-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: var(--white); margin-bottom: 1rem;
+  }
+  .delivery-info {
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 8px; padding: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .delivery-info h4 { color: var(--gold); margin-bottom: 0.8rem; font-size: 1rem; }
+  .delivery-row {
+    display: flex; justify-content: space-between;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--text); font-size: 0.9rem;
+  }
+  .delivery-row:last-child { border-bottom: none; }
+  .delivery-row strong { color: var(--white); }
+  .bkash-info {
+    background: rgba(220,52,101,0.08);
+    border: 1px solid rgba(220,52,101,0.25);
+    border-radius: 8px; padding: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .bkash-info h4 { color: #DC3465; margin-bottom: 0.5rem; font-size: 1rem; }
+  .bkash-num {
+    font-size: 1.4rem; font-weight: 700; color: var(--white);
+    letter-spacing: 1px;
+  }
+  .bkash-info p { color: var(--text); font-size: 0.85rem; margin-top: 0.4rem; }
+  .order-form {
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 12px; padding: 2rem;
+  }
+  .selected-watch-display {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 8px; padding: 1rem;
+    margin-bottom: 1.5rem;
+    display: none;
+  }
+  .selected-watch-display.show { display: block; }
+  .selected-watch-display p { color: var(--text); font-size: 0.85rem; margin-bottom: 0.3rem; }
+  .selected-watch-display strong { color: var(--gold); font-size: 1.1rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block; color: var(--text); font-size: 0.88rem;
+    margin-bottom: 0.4rem; font-weight: 500;
+  }
+  .form-group label span { color: #e05; }
+  .form-control {
+    width: 100%;
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--white);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.3s;
+    outline: none;
+  }
+  .form-control:focus { border-color: var(--gold); }
+  .form-control::placeholder { color: var(--gray); }
+  .radio-group { display: flex; flex-direction: column; gap: 0.6rem; }
+  .radio-option {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 8px; padding: 0.9rem 1rem;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .radio-option:hover { border-color: rgba(201,168,76,0.4); }
+  .radio-option.active { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+  .radio-option input { display: none; }
+  .radio-dot {
+    width: 18px; height: 18px; min-width: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(201,168,76,0.4);
+    margin-top: 2px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
+  }
+  .radio-option.active .radio-dot { border-color: var(--gold); }
+  .radio-dot::after {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: none;
+  }
+  .radio-option.active .radio-dot::after { display: block; }
+  .radio-text { flex: 1; }
+  .radio-text strong { color: var(--white); font-size: 0.95rem; display: block; }
+  .radio-text small { color: var(--text); font-size: 0.8rem; }
+  .bkash-fields { display: none; margin-top: 1rem; }
+  .bkash-fields.show { display: block; }
+  .submit-btn {
+    width: 100%;
+    background: var(--gold);
+    color: var(--black);
+    border: none; padding: 1rem;
+    border-radius: 6px;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 1.05rem; font-weight: 700;
+    cursor: pointer; transition: all 0.3s;
+    margin-top: 0.5rem;
+    letter-spacing: 0.5px;
+  }
+  .submit-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .submit-btn:disabled { background: var(--gray); cursor: not-allowed; transform: none; }
+  .no-watch-msg {
+    text-align: center; padding: 1rem;
+    color: #e05; font-size: 0.85rem;
+    display: none;
+  }
+
+  /* ===== REVIEWS ===== */
   #reviews { background: var(--dark); }
   .reviews-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px; max-width: 1000px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
   }
   .review-card {
-    background: var(--dark3); border: 1px solid rgba(201,168,76,.12);
-    border-radius: 12px; padding: 20px;
-    transition: transform .3s, border-color .3s;
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 12px; padding: 1.5rem;
+    transition: transform 0.3s;
   }
-  .review-card:hover { transform: translateY(-4px); border-color: rgba(201,168,76,.35); }
-  .stars { color: var(--gold); font-size: 1rem; margin-bottom: 12px; letter-spacing: 2px; }
-  .review-text { color: var(--light-gray); font-size: .9rem; line-height: 1.7; margin-bottom: 14px; font-style: italic; }
-  .reviewer { display: flex; align-items: center; gap: 10px; }
+  .review-card:hover { transform: translateY(-3px); }
+  .stars { color: var(--gold); font-size: 1rem; margin-bottom: 0.8rem; letter-spacing: 2px; }
+  .review-text {
+    color: var(--text); font-size: 0.92rem; line-height: 1.7;
+    margin-bottom: 1.2rem; font-style: italic;
+  }
+  .reviewer {
+    display: flex; align-items: center; gap: 0.8rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 1rem;
+  }
   .reviewer-avatar {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    width: 40px; height: 40px; border-radius: 50%;
+    background: radial-gradient(circle, var(--gold-dark), #2a1a05);
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: .9rem; color: var(--black); flex-shrink: 0;
+    font-size: 1rem; font-weight: 700; color: var(--gold);
+    border: 1.5px solid rgba(201,168,76,0.3);
+    flex-shrink: 0;
   }
-  .reviewer-info .name { font-weight: 700; font-size: .88rem; }
-  .reviewer-info .loc { color: var(--gray); font-size: .78rem; }
+  .reviewer-name { color: var(--white); font-weight: 600; font-size: 0.9rem; }
+  .reviewer-loc { color: var(--gray); font-size: 0.78rem; }
 
-  /* ── TRUST BADGES ── */
-  #trust { background: var(--dark2); }
-  .trust-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px; max-width: 900px; margin: 0 auto;
+  /* ===== CONTACT ===== */
+  #contact { background: var(--black); }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: center;
   }
-  .trust-card {
-    background: var(--dark3); border: 1px solid rgba(201,168,76,.15);
-    border-radius: 10px; padding: 24px 16px; text-align: center;
-    transition: transform .3s;
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 10px; padding: 1rem 1.2rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    color: var(--text);
   }
-  .trust-card:hover { transform: translateY(-4px); }
-  .trust-ico { font-size: 2.2rem; margin-bottom: 12px; }
-  .trust-name { font-weight: 700; font-size: .95rem; color: var(--gold); margin-bottom: 6px; }
-  .trust-desc { color: var(--gray); font-size: .82rem; }
+  .contact-link:hover {
+    border-color: rgba(201,168,76,0.5);
+    background: rgba(201,168,76,0.05);
+  }
+  .contact-link-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+  }
+  .contact-link-icon.wa { background: rgba(37,211,102,0.15); color: #25D366; }
+  .contact-link-icon.fb { background: rgba(24,119,242,0.15); color: #1877F2; }
+  .contact-link-text strong { display: block; color: var(--white); font-size: 0.95rem; }
+  .contact-link-text span { font-size: 0.82rem; }
 
-  /* ── CONTACT ── */
-  #contact { background: var(--dark); }
-  .contact-wrap { max-width: 480px; margin: 0 auto; text-align: center; }
-  .contact-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
-  .btn-wa {
-    display: flex; align-items: center; gap: 10px;
-    background: #25D366; color: white;
-    padding: 14px 24px; border-radius: 8px; font-weight: 700;
-    text-decoration: none; font-size: .95rem; font-family: 'Hind Siliguri', sans-serif;
-    transition: transform .2s, box-shadow .2s;
-    box-shadow: 0 4px 16px rgba(37,211,102,.3);
-  }
-  .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(37,211,102,.45); }
-  .btn-fb {
-    display: flex; align-items: center; gap: 10px;
-    background: #1877F2; color: white;
-    padding: 14px 24px; border-radius: 8px; font-weight: 700;
-    text-decoration: none; font-size: .95rem; font-family: 'Hind Siliguri', sans-serif;
-    transition: transform .2s, box-shadow .2s;
-    box-shadow: 0 4px 16px rgba(24,119,242,.3);
-  }
-  .btn-fb:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(24,119,242,.45); }
-
-  /* ── FOOTER ── */
+  /* ===== FOOTER ===== */
   footer {
-    background: var(--black); border-top: 1px solid rgba(201,168,76,.15);
-    text-align: center; padding: 32px 20px;
+    background: var(--dark2);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding: 2rem 5%;
+    text-align: center;
   }
-  footer .footer-brand {
-    font-family: 'Playfair Display', serif; font-size: 1.5rem;
-    color: var(--gold); letter-spacing: 3px; margin-bottom: 10px;
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: var(--gold);
+    margin-bottom: 0.5rem;
   }
-  footer p { color: var(--gray); font-size: .82rem; line-height: 1.8; }
-  footer .gold-text { color: var(--gold); }
+  footer p { color: var(--gray); font-size: 0.82rem; }
+  footer p a { color: var(--gold); text-decoration: none; }
 
-  /* ── FLOATING BUTTONS ── */
-  .float-wa {
-    position: fixed; bottom: 90px; right: 16px; z-index: 800;
-    background: #25D366; color: white;
+  /* ===== FLOATING BUTTONS ===== */
+  .floating-btns {
+    position: fixed; bottom: 24px; right: 24px;
+    display: flex; flex-direction: column; gap: 10px;
+    z-index: 999;
+  }
+  .float-btn {
     width: 52px; height: 52px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.5rem; text-decoration: none;
-    box-shadow: 0 4px 20px rgba(37,211,102,.45);
-    animation: bounce 2s infinite;
+    text-decoration: none; font-size: 1.4rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    transition: transform 0.3s;
+    border: none; cursor: pointer;
   }
-  @keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+  .float-btn:hover { transform: scale(1.1); }
+  .float-btn.wa { background: #25D366; }
+  .float-btn.fb { background: #1877F2; }
+
+  /* ===== SUCCESS MODAL ===== */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 2000;
+    background: rgba(0,0,0,0.85);
+    display: none; align-items: center; justify-content: center;
+    padding: 1rem;
   }
-  .sticky-cta {
-    position: fixed; bottom: 0; left: 0; right: 0; z-index: 850;
-    background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
-    padding: 14px 20px; text-align: center;
-    display: none;
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 16px; padding: 2.5rem;
+    max-width: 460px; width: 100%;
+    text-align: center;
   }
-  .sticky-cta a {
-    color: var(--black); font-weight: 700; font-size: 1rem;
-    text-decoration: none; font-family: 'Hind Siliguri', sans-serif;
+  .modal-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+  .modal-box h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+  .modal-box p { color: var(--text); line-height: 1.7; margin-bottom: 1.5rem; }
+  .modal-close {
+    background: var(--gold); color: var(--black);
+    border: none; padding: 0.8rem 2rem;
+    border-radius: 6px;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    cursor: pointer; transition: background 0.3s;
+  }
+  .modal-close:hover { background: var(--gold-light); }
+
+  /* ===== DIVIDER ===== */
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent);
+    margin: 0 5%;
   }
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .reveal {
-    opacity: 0; transform: translateY(30px);
-    transition: opacity .6s ease, transform .6s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* ── GALLERY SLIDER ── */
-  .slider-wrap { position: relative; overflow: hidden; border-radius: 12px; }
-  .slider-track {
-    display: flex; transition: transform .45s ease;
-  }
-  .slide { min-width: 100%; aspect-ratio: 4/3; }
-  .slide img { width: 100%; height: 100%; object-fit: cover; }
-  .slider-dots {
-    display: flex; justify-content: center; gap: 8px; margin-top: 14px;
-  }
-  .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--gray); cursor: pointer; transition: background .2s;
-  }
-  .dot.active { background: var(--gold); }
-  .slider-arrows {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    width: 100%; display: flex; justify-content: space-between;
-    padding: 0 10px; pointer-events: none;
-  }
-  .arr-btn {
-    pointer-events: all; background: rgba(0,0,0,.5); border: 1px solid rgba(201,168,76,.3);
-    color: var(--gold); width: 36px; height: 36px; border-radius: 50%;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: .9rem; transition: background .2s;
-  }
-  .arr-btn:hover { background: rgba(201,168,76,.2); }
-
-  /* Gallery section */
-  #gallery { background: var(--dark2); }
-  .gallery-main { max-width: 500px; margin: 0 auto 20px; }
-
-  @media(max-width:600px) {
-    .products-grid, .trust-grid { grid-template-columns: 1fr; }
-    .reviews-grid { grid-template-columns: 1fr; }
-    .payment-cards { grid-template-columns: 1fr; }
-    .sticky-cta { display: block; }
-    body { padding-bottom: 58px; }
-    .form-wrap { padding: 24px 16px; }
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    header { padding: 0 4%; }
+    nav { display: none; }
+    .hero { flex-direction: column; padding: 90px 5% 50px; gap: 2rem; }
+    .hero-image { width: 100%; }
+    .watch-showcase { width: 200px; height: 200px; font-size: 5.5rem; }
+    .hero-stats { gap: 1.5rem; }
+    .order-container { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .trust-bar { gap: 1.5rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- LOADER -->
-<div id="loader">
-  <div class="logo-text">Ketu's Mart</div>
-  <div class="loader-ring"></div>
+<!-- OFFER TIMER BAR -->
+<div class="offer-bar">
+  <div class="offer-bar-text">
+    <span class="fire">🔥</span>
+    <span class="offer-bar-label">বিশেষ অফার</span>
+    <span>এই দামে ঘড়ি পাওয়ার সুযোগ শেষ হচ্ছে —</span>
+    <div class="timer-boxes">
+      <div class="timer-box"><span class="t-num" id="t-days">03</span><span class="t-lbl">দিন</span></div>
+      <span class="timer-sep">:</span>
+      <div class="timer-box"><span class="t-num" id="t-hours">00</span><span class="t-lbl">ঘণ্টা</span></div>
+      <span class="timer-sep">:</span>
+      <div class="timer-box"><span class="t-num" id="t-mins">00</span><span class="t-lbl">মিনিট</span></div>
+      <span class="timer-sep">:</span>
+      <div class="timer-box"><span class="t-num" id="t-secs">00</span><span class="t-lbl">সেকেন্ড</span></div>
+    </div>
+    <span class="offer-bar-end">পরে মূল্য বাড়বে! এখনই অর্ডার করুন</span>
+  </div>
 </div>
 
-<!-- HEADER (urgency strip + nav combined) -->
+<!-- HEADER -->
 <header>
-  <div class="header-urgency">
-    <span class="hu-dot"></span>
-    🔥 স্টক সীমিত! আজকের অফার — দ্রুত অর্ডার করুন! &nbsp;⚡&nbsp; সারা বাংলাদেশে ডেলিভারি
-  </div>
-  <div class="header-nav">
-    <a href="#" class="brand">Ketu's Mart</a>
-    <button class="header-cta" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">অর্ডার করুন</button>
-  </div>
+  <a href="#" class="logo">Ketu's <span>Mart</span></a>
+  <nav>
+    <a href="#products">ঘড়ি দেখুন</a>
+    <a href="#order">অর্ডার করুন</a>
+    <a href="#reviews">রিভিউ</a>
+    <a href="#contact">যোগাযোগ</a>
+  </nav>
+  <a href="#order" class="header-cta">অর্ডার করুন</a>
 </header>
 
-<!-- COUNTDOWN TIMER -->
-<div id="countdown-section" style="margin-top:88px;">
-  <div class="timer-eyebrow">
-    <span class="dot-blink"></span>
-    বিশেষ অফার চলছে
+<!-- HERO -->
+<section class="hero" style="display:flex; gap: 3rem;">
+  <div class="hero-content">
+    <div class="hero-badge">✦ প্রিমিয়াম কোয়ালিটি ✦</div>
+    <h1>
+      সময়কে করুন
+      <span class="highlight">আরও মূল্যবান</span>
+    </h1>
+    <p>Ketu's Mart-এ আপনাকে স্বাগতম। আমাদের এক্সক্লুসিভ ঘড়ি কালেকশন থেকে আপনার পছন্দের ঘড়িটি বেছে নিন এবং ঘরে বসেই অর্ডার করুন।</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">ঘড়ি দেখুন →</a>
+      <a href="#order" class="btn-outline">অর্ডার করুন</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">৫০০+</span>
+        <span class="stat-label">সন্তুষ্ট গ্রাহক</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">১০০%</span>
+        <span class="stat-label">অরিজিনাল পণ্য</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">৪.৯★</span>
+        <span class="stat-label">গড় রেটিং</span>
+      </div>
+    </div>
   </div>
-  <h2 class="timer-headline">&#9203; বিশেষ ডিসকাউন্ট অফার শেষ হতে বাকি মাত্র</h2>
-  <p class="timer-sub">এই সময়ের মধ্যে অর্ডার করলে <span style="color:var(--gold);font-weight:700;">৬০% ছাড়</span> পাবেন — সুযোগ মিস করবেন না!</p>
+  <div class="hero-image">
+    <div class="watch-showcase">⌚</div>
+  </div>
+</section>
 
-  <div class="timer-blocks">
-    <div class="timer-unit">
-      <div class="timer-box"><span class="timer-num" id="t-days">02</span></div>
-      <span class="timer-label">দিন</span>
-    </div>
-    <div class="timer-sep">:</div>
-    <div class="timer-unit">
-      <div class="timer-box"><span class="timer-num" id="t-hours">00</span></div>
-      <span class="timer-label">ঘন্টা</span>
-    </div>
-    <div class="timer-sep">:</div>
-    <div class="timer-unit">
-      <div class="timer-box"><span class="timer-num" id="t-mins">00</span></div>
-      <span class="timer-label">মিনিট</span>
-    </div>
-    <div class="timer-sep">:</div>
-    <div class="timer-unit">
-      <div class="timer-box"><span class="timer-num" id="t-secs">00</span></div>
-      <span class="timer-label">সেকেন্ড</span>
-    </div>
-  </div>
-
-  <div class="timer-progress-wrap">
-    <div class="timer-progress-label">
-      <span>অফার শুরু হয়েছে</span>
-      <span id="pct-label">১০০% বাকি</span>
-    </div>
-    <div class="timer-progress-bar">
-      <div class="timer-progress-fill" id="timer-fill" style="width:100%"></div>
-    </div>
-  </div>
-
-  <div class="timer-cta-row">
-    <a href="#order" class="timer-cta">&#128722; এখনই অর্ডার করুন — অফার শেষ হওয়ার আগেই!</a>
-  </div>
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">🛡️</span> ১০০% অরিজিনাল গ্যারান্টি</div>
+  <div class="trust-item"><span class="trust-icon">🚚</span> দ্রুত হোম ডেলিভারি</div>
+  <div class="trust-item"><span class="trust-icon">↩️</span> সহজ রিটার্ন পলিসি</div>
+  <div class="trust-item"><span class="trust-icon">🔒</span> নিরাপদ পেমেন্ট</div>
+  <div class="trust-item"><span class="trust-icon">📞</span> ২৪/৭ সাপোর্ট</div>
 </div>
 
-<!-- HERO SECTION -->
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <div class="badge-row">
-      <span class="badge">✨ আজকের বিশেষ অফার</span>
-      <span class="badge">🚚 ক্যাশ অন ডেলিভারি</span>
-      <span class="badge">⭐ ১০০% প্রিমিয়াম</span>
-    </div>
-    <h1 class="hero-title">পরুন প্রিমিয়াম ঘড়ি,<br>অনুভব করুন <span>বিলাসিতা</span></h1>
-    <p class="hero-sub">সারা বাংলাদেশে দ্রুত ডেলিভারি • ক্যাশ অন ডেলিভারি সুবিধা • দ্রুত অর্ডার কনফার্মেশন</p>
-    <div class="hero-price-row">
-      <span class="price-old">২,৫০০৳</span>
-      <span class="price-new">৯৯০৳</span>
-      <span class="price-save">৬০% ছাড়</span>
-    </div>
-    <a href="#order" class="btn-primary">🛒 অর্ডার করুন</a>
-    <div class="trust-row">
-      <div class="trust-item"><span class="ico">🚚</span> সারা বাংলাদেশে ডেলিভারি</div>
-      <div class="trust-item"><span class="ico">💵</span> ক্যাশ অন ডেলিভারি</div>
-      <div class="trust-item"><span class="ico">⚡</span> দ্রুত কনফার্মেশন</div>
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY SECTION -->
-<section id="gallery">
-  <h2 class="sec-title reveal">আমাদের <span>কালেকশন</span></h2>
-  <div class="divider"></div>
-  <div class="gallery-main reveal">
-    <div class="slider-wrap">
-      <div class="slider-track" id="sliderTrack">
-        <div class="slide"><img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&q=80" alt="ঘড়ি ১"></div>
-        <div class="slide"><img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=600&q=80" alt="ঘড়ি ২"></div>
-        <div class="slide"><img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=600&q=80" alt="ঘড়ি ৩"></div>
-        <div class="slide"><img src="https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=600&q=80" alt="ঘড়ি ৪"></div>
-      </div>
-      <div class="slider-arrows">
-        <button class="arr-btn" onclick="changeSlide(-1)">◀</button>
-        <button class="arr-btn" onclick="changeSlide(1)">▶</button>
-      </div>
-    </div>
-    <div class="slider-dots" id="sliderDots"></div>
-  </div>
-</section>
-
-<!-- PRODUCTS SECTION -->
+<!-- PRODUCTS -->
 <section id="products">
-  <h2 class="sec-title reveal">আমাদের <span>প্রিমিয়াম ঘড়ি</span></h2>
-  <p class="sec-sub reveal">পছন্দের ঘড়িটি সিলেক্ট করুন, তারপর অর্ডার করুন</p>
-  <div class="divider"></div>
+  <div class="section-header">
+    <span class="section-tag">✦ আমাদের কালেকশন</span>
+    <h2 class="section-title">প্রিমিয়াম ঘড়ি সিলেক্ট করুন</h2>
+    <p class="section-sub">আপনার পছন্দের ঘড়িটি সিলেক্ট করুন এবং নিচের ফর্মে অর্ডার দিন।</p>
+  </div>
   <div class="products-grid">
 
-    <div class="product-card reveal" id="prod-1" onclick="selectProduct(1)">
-      <span class="tag">🔥 সেরা বিক্রি</span>
-      <span class="selected-badge">✓ সিলেক্ট হয়েছে</span>
-      <div class="product-img-wrap">
-        <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=500&q=80" alt="লাক্সারি ক্লাসিক ওয়াচ">
-      </div>
+    <!-- Watch 1 -->
+    <div class="product-card" onclick="selectWatch(this, 'Classic Elite Pro', '৳২,৪৯০')">
+      <span class="selected-badge">✓ সিলেক্টেড</span>
+      <div class="product-img">⌚</div>
       <div class="product-info">
-        <div class="product-name">লাক্সারি ক্লাসিক রিস্টওয়াচ</div>
-        <div class="product-prices">
-          <span class="prod-old">২,৫০০৳</span>
-          <span class="prod-new">৯৯০৳</span>
-        </div>
-        <ul class="features-list">
-          <li>স্টাইলিশ ডিজাইন</li>
-          <li>ওয়াটার রেজিস্ট্যান্ট</li>
-          <li>দীর্ঘস্থায়ী ব্যাটারি</li>
-          <li>প্রিমিয়াম কোয়ালিটি</li>
+        <p class="product-name">Classic Elite Pro</p>
+        <p class="product-price">৳২,৪৯০ <span>/ টি</span></p>
+        <p class="product-desc">কালজয়ী ক্লাসিক ডিজাইনে তৈরি এই ঘড়িটি যেকোনো অনুষ্ঠানে আপনার ব্যক্তিত্বকে আরও উজ্জ্বল করে তুলবে।</p>
+        <ul class="product-features">
+          <li>স্টেইনলেস স্টিল কেসিং</li>
+          <li>মিনারেল ক্রিস্টাল গ্লাস</li>
+          <li>ওয়াটার রেজিস্ট্যান্ট ৩০M</li>
+          <li>জাপানি কোয়ার্টজ মুভমেন্ট</li>
+          <li>১ বছরের ওয়ারেন্টি</li>
         </ul>
-        <button class="btn-order-sm" type="button">এই ঘড়িটি সিলেক্ট করুন</button>
+        <button class="select-btn">এই ঘড়িটি সিলেক্ট করুন</button>
       </div>
     </div>
 
-    <div class="product-card reveal" id="prod-2" onclick="selectProduct(2)">
-      <span class="tag">⭐ নতুন</span>
-      <span class="selected-badge">✓ সিলেক্ট হয়েছে</span>
-      <div class="product-img-wrap">
-        <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=500&q=80" alt="স্পোর্টস ওয়াচ">
-      </div>
+    <!-- Watch 2 -->
+    <div class="product-card" onclick="selectWatch(this, 'Royal Gold Edition', '৳৩,৪৯০')">
+      <span class="selected-badge">✓ সিলেক্টেড</span>
+      <div class="product-img" style="background: radial-gradient(circle at 40% 40%, #3a2800, #1a1000, #0a0800);">⌚</div>
       <div class="product-info">
-        <div class="product-name">প্রিমিয়াম স্পোর্টস ওয়াচ</div>
-        <div class="product-prices">
-          <span class="prod-old">৩,০০০৳</span>
-          <span class="prod-new">১,১৯০৳</span>
-        </div>
-        <ul class="features-list">
-          <li>স্পোর্টি লুক ডিজাইন</li>
-          <li>১০০M ওয়াটার রেজিস্ট্যান্ট</li>
-          <li>অতিরিক্ত লং ব্যাটারি</li>
-          <li>স্টেইনলেস স্টিল স্ট্র্যাপ</li>
-        </ul>
-        <button class="btn-order-sm" type="button">এই ঘড়িটি সিলেক্ট করুন</button>
-      </div>
-    </div>
-
-    <div class="product-card reveal" id="prod-3" onclick="selectProduct(3)">
-      <span class="tag">💎 এক্সক্লুসিভ</span>
-      <span class="selected-badge">✓ সিলেক্ট হয়েছে</span>
-      <div class="product-img-wrap">
-        <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=500&q=80" alt="গোল্ড এডিশন ওয়াচ">
-      </div>
-      <div class="product-info">
-        <div class="product-name">গোল্ড এডিশন ওয়াচ</div>
-        <div class="product-prices">
-          <span class="prod-old">৪,৫০০৳</span>
-          <span class="prod-new">১,৪৯০৳</span>
-        </div>
-        <ul class="features-list">
-          <li>গোল্ড প্লেটেড কেস</li>
-          <li>স্যাফায়ার গ্লাস</li>
+        <p class="product-name">Royal Gold Edition</p>
+        <p class="product-price">৳৩,৪৯০ <span>/ টি</span></p>
+        <p class="product-desc">সোনালী ফিনিশিং এবং রয়্যাল ডিজাইনের এই ঘড়িটি বিশেষ অনুষ্ঠান ও ব্যবসায়িক মিটিংয়ের জন্য আদর্শ।</p>
+        <ul class="product-features">
+          <li>গোল্ড প্লেটেড ফ্রেম</li>
+          <li>স্যাফায়ার ক্রিস্টাল গ্লাস</li>
+          <li>ওয়াটার রেজিস্ট্যান্ট ৫০M</li>
+          <li>অটোম্যাটিক মুভমেন্ট</li>
           <li>২ বছরের ওয়ারেন্টি</li>
-          <li>লাক্সারি প্যাকেজিং</li>
         </ul>
-        <button class="btn-order-sm" type="button">এই ঘড়িটি সিলেক্ট করুন</button>
+        <button class="select-btn">এই ঘড়িটি সিলেক্ট করুন</button>
       </div>
     </div>
 
-    <div class="product-card reveal" id="prod-4" onclick="selectProduct(4)">
-      <span class="tag">🖤 লিমিটেড</span>
-      <span class="selected-badge">✓ সিলেক্ট হয়েছে</span>
-      <div class="product-img-wrap">
-        <img src="https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=500&q=80" alt="ব্ল্যাক এডিশন ওয়াচ">
-      </div>
+    <!-- Watch 3 -->
+    <div class="product-card" onclick="selectWatch(this, 'Sport Pro X', '৳২,৮৯০')">
+      <span class="selected-badge">✓ সিলেক্টেড</span>
+      <div class="product-img" style="background: radial-gradient(circle at 40% 40%, #0a1a2a, #050f1a, #030a10);">⌚</div>
       <div class="product-info">
-        <div class="product-name">ব্ল্যাক এডিশন ওয়াচ</div>
-        <div class="product-prices">
-          <span class="prod-old">৩,৫০০৳</span>
-          <span class="prod-new">১,২৯০৳</span>
-        </div>
-        <ul class="features-list">
-          <li>অল-ব্ল্যাক ডিজাইন</li>
-          <li>মিলিটারি গ্রেড বিল্ড</li>
-          <li>নাইট ভিশন ডায়াল</li>
-          <li>লিমিটেড কালেকশন</li>
+        <p class="product-name">Sport Pro X</p>
+        <p class="product-price">৳২,৮৯০ <span>/ টি</span></p>
+        <p class="product-desc">অ্যাডভেঞ্চার ও স্পোর্টস লাভারদের জন্য তৈরি এই ঘড়িটি যেকোনো কঠিন পরিবেশেও নির্ভরযোগ্যভাবে কাজ করে।</p>
+        <ul class="product-features">
+          <li>মিলিটারি গ্রেড বডি</li>
+          <li>শকপ্রুফ ডিজাইন</li>
+          <li>ওয়াটার রেজিস্ট্যান্ট ১০০M</li>
+          <li>লুমিনাস ডায়াল</li>
+          <li>২ বছরের ওয়ারেন্টি</li>
         </ul>
-        <button class="btn-order-sm" type="button">এই ঘড়িটি সিলেক্ট করুন</button>
+        <button class="select-btn">এই ঘড়িটি সিলেক্ট করুন</button>
+      </div>
+    </div>
+
+    <!-- Watch 4 -->
+    <div class="product-card" onclick="selectWatch(this, 'Urban Black Steel', '৳২,১৯০')">
+      <span class="selected-badge">✓ সিলেক্টেড</span>
+      <div class="product-img" style="background: radial-gradient(circle at 40% 40%, #1a1a1a, #0d0d0d, #050505);">⌚</div>
+      <div class="product-info">
+        <p class="product-name">Urban Black Steel</p>
+        <p class="product-price">৳২,১৯০ <span>/ টি</span></p>
+        <p class="product-desc">মডার্ন ও মিনিমালিস্ট ডিজাইনের এই ঘড়িটি তরুণ প্রজন্মের পছন্দের শীর্ষে। স্টাইলিশ লাইফস্টাইলের নিখুঁত সঙ্গী।</p>
+        <ul class="product-features">
+          <li>মেটাল মেশ স্ট্র্যাপ</li>
+          <li>অ্যান্টি-স্ক্র্যাচ গ্লাস</li>
+          <li>ওয়াটার রেজিস্ট্যান্ট ৩০M</li>
+          <li>সিম্পল ও এলিগ্যান্ট ডায়াল</li>
+          <li>১ বছরের ওয়ারেন্টি</li>
+        </ul>
+        <button class="select-btn">এই ঘড়িটি সিলেক্ট করুন</button>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- PAYMENT SECTION -->
-<section id="payment">
-  <h2 class="sec-title reveal">পেমেন্ট <span>পদ্ধতি</span></h2>
-  <p class="sec-sub reveal">আপনার সুবিধামতো যেকোনো পদ্ধতিতে পেমেন্ট করুন</p>
-  <div class="divider"></div>
-  <div class="payment-cards">
-
-    <div class="pay-card reveal">
-      <div class="pay-icon">💵</div>
-      <div class="pay-title">ক্যাশ অন ডেলিভারি</div>
-      <div class="pay-desc">পণ্য হাতে পেয়ে টাকা দিন। সম্পূর্ণ ঝুঁকিমুক্ত। কোনো অগ্রিম পেমেন্ট নেই।</div>
-    </div>
-
-    <div class="pay-card reveal">
-      <div class="pay-icon">📱</div>
-      <div class="pay-title">সম্পূর্ণ টাকা পরিশোধ</div>
-      <div class="pay-desc">
-        অর্ডারের সম্পূর্ণ টাকা পাঠান:<br>
-        <strong>bKash Send Money</strong><br>
-        <span class="pay-number">01858182562</span><br><br>
-        <small style="color:var(--gray)">পেমেন্টের পর অর্ডার ফর্ম পূরণ করুন</small>
-      </div>
-    </div>
-
-    <div class="pay-card reveal">
-      <div class="pay-icon">🚚</div>
-      <div class="pay-title">শুধু ডেলিভারি চার্জ</div>
-      <div class="pay-desc">
-        শুধুমাত্র ডেলিভারি চার্জ পাঠান:<br>
-        <strong>bKash Send Money</strong><br>
-        <span class="pay-number">01858182562</span>
-      </div>
-      <div class="charge-row" style="margin-top:12px">
-        <span>ঢাকার ভেতরে:</span><span>৮০৳</span>
-      </div>
-      <div class="charge-row">
-        <span>ঢাকার বাইরে:</span><span>১৩০৳</span>
-      </div>
-    </div>
-
-  </div>
-</section>
+<div class="gold-divider"></div>
 
 <!-- ORDER FORM -->
 <section id="order">
-  <h2 class="sec-title reveal">এখনই <span>অর্ডার করুন</span></h2>
-  <p class="sec-sub reveal">ফর্মটি পূরণ করুন, আমরা দ্রুত যোগাযোগ করব</p>
-  <div class="divider"></div>
+  <div class="section-header">
+    <span class="section-tag">✦ অর্ডার</span>
+    <h2 class="section-title">এখনই অর্ডার করুন</h2>
+    <p class="section-sub">উপরে থেকে ঘড়ি সিলেক্ট করে নিচের ফর্মটি পূরণ করুন।</p>
+  </div>
+  <div class="order-container">
 
-  <div class="form-wrap reveal">
-    <div class="form-title">📦 অর্ডার ফর্ম</div>
-
-    <form id="orderForm" onsubmit="submitOrder(event)">
-
-      <!-- Selected Product Preview -->
-      <div id="selectedProductPreview">
-        <img id="prevImg" src="" alt="">
-        <div class="prev-info">
-          <div class="prev-name" id="prevName">—</div>
-          <div class="prev-price" id="prevPrice">—</div>
-          <span class="prev-change" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">← ঘড়ি পরিবর্তন করুন</span>
+    <!-- Info Side -->
+    <div class="order-info">
+      <h3>📦 ডেলিভারি তথ্য</h3>
+      <div class="delivery-info">
+        <h4>🚚 ডেলিভারি চার্জ</h4>
+        <div class="delivery-row">
+          <span>ঢাকার ভেতরে</span>
+          <strong>৳৮০</strong>
         </div>
-      </div>
-      <div id="noProductWarn" style="display:none; background:rgba(229,62,62,.1); border:1px solid rgba(229,62,62,.3); border-radius:6px; padding:10px 14px; margin-bottom:16px; font-size:.85rem; color:#fc8181; text-align:center;">
-        ⚠️ আগে উপর থেকে একটি ঘড়ি সিলেক্ট করুন
-      </div>
-
-      <div class="form-group">
-        <label>আপনার নাম <span>*</span></label>
-        <input type="text" class="form-control" id="custName" placeholder="আপনার পূর্ণ নাম লিখুন" required>
-        <div class="error-msg" id="nameErr">নাম লিখুন</div>
-      </div>
-
-      <div class="form-group">
-        <label>মোবাইল নম্বর <span>*</span></label>
-        <input type="tel" class="form-control" id="custPhone" placeholder="01XXXXXXXXX" required>
-        <div class="error-msg" id="phoneErr">সঠিক মোবাইল নম্বর দিন (11 ডিজিট)</div>
-      </div>
-
-      <div class="form-group">
-        <label>সম্পূর্ণ ঠিকানা <span>*</span></label>
-        <textarea class="form-control" id="custAddress" rows="3" placeholder="বাড়ি নং, রোড, এলাকা, জেলা লিখুন" required></textarea>
-        <div class="error-msg" id="addressErr">ঠিকানা লিখুন</div>
-      </div>
-
-      <div class="form-group">
-        <label>এলাকা নির্বাচন করুন <span>*</span></label>
-        <select class="form-control" id="custArea" required onchange="updateDelivery()">
-          <option value="">— এলাকা বেছে নিন —</option>
-          <option value="dhaka">ঢাকা (ডেলিভারি চার্জ: ৮০৳)</option>
-          <option value="outside">ঢাকার বাইরে (ডেলিভারি চার্জ: ১৩০৳)</option>
-        </select>
-        <div class="error-msg" id="areaErr">এলাকা নির্বাচন করুন</div>
-      </div>
-
-      <div class="form-group">
-        <label>পেমেন্ট পদ্ধতি <span>*</span></label>
-        <div class="radio-group" id="payGroup">
-          <label class="radio-item" onclick="selectRadio(this)">
-            <input type="radio" name="payment" value="cash_on_delivery" required>
-            <span class="radio-label">💵 ক্যাশ অন ডেলিভারি</span>
-          </label>
-          <label class="radio-item" onclick="selectRadio(this)">
-            <input type="radio" name="payment" value="full_payment">
-            <span class="radio-label">📱 সম্পূর্ণ টাকা পরিশোধ (bKash: 01858182562)</span>
-          </label>
-          <label class="radio-item" onclick="selectRadio(this)">
-            <input type="radio" name="payment" value="delivery_charge_only">
-            <span class="radio-label">🚚 শুধু ডেলিভারি চার্জ পরিশোধ (bKash: 01858182562)</span>
-          </label>
-        </div>
-        <div class="error-msg" id="payErr">পেমেন্ট পদ্ধতি নির্বাচন করুন</div>
-      </div>
-
-      <div class="form-group">
-        <label>পরিমাণ <span>*</span></label>
-        <div class="qty-row">
-          <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
-          <input type="number" class="form-control qty-input" id="custQty" value="1" min="1" max="10" readonly>
-          <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
+        <div class="delivery-row">
+          <span>ঢাকার বাইরে</span>
+          <strong>৳১৩০</strong>
         </div>
       </div>
 
-      <div id="deliveryInfo" style="display:none; background:rgba(201,168,76,.1); border:1px solid rgba(201,168,76,.25); border-radius:6px; padding:10px 14px; margin-bottom:16px; font-size:.88rem; color:var(--light-gray);">
-        ডেলিভারি চার্জ: <strong id="deliveryCharge" style="color:var(--gold)"></strong>
+      <div class="bkash-info">
+        <h4>💳 বিকাশ পেমেন্ট নম্বর</h4>
+        <div class="bkash-num">01858182562</div>
+        <p>Send Money করে Transaction ID সংরক্ষণ করুন</p>
       </div>
 
-      <button type="submit" class="btn-submit" id="submitBtn">✅ অর্ডার কনফার্ম করুন</button>
-    </form>
-
-    <div id="successMsg">
-      <div class="check">🎉</div>
-      <h3>অর্ডার সফলভাবে কনফার্ম হয়েছে!</h3>
-      <p>ধন্যবাদ! আমাদের টিম শীঘ্রই আপনার সাথে যোগাযোগ করবে।<br>
-      ১-২ কর্মদিবসের মধ্যে আপনার ঘড়ি পৌঁছে যাবে।</p>
+      <div class="delivery-info">
+        <h4>📋 পেমেন্ট অপশন</h4>
+        <div class="delivery-row"><span>💵 ক্যাশ অন ডেলিভারি</span><strong>পণ্য পেয়ে পেমেন্ট</strong></div>
+        <div class="delivery-row"><span>✅ সম্পূর্ণ পেমেন্ট</span><strong>বিকাশে সম্পূর্ণ টাকা</strong></div>
+        <div class="delivery-row"><span>🚚 ডেলিভারি চার্জ</span><strong>শুধু চার্জ বিকাশে</strong></div>
+      </div>
     </div>
 
+    <!-- Form Side -->
+    <div class="order-form">
+      <div class="selected-watch-display" id="selectedWatchDisplay">
+        <p>আপনার সিলেক্টেড ঘড়ি:</p>
+        <strong id="selectedWatchName">—</strong>
+        <span id="selectedWatchPrice" style="color: var(--text); font-size: 0.9rem;"></span>
+      </div>
+
+      <div class="form-group">
+        <label>আপনার পূর্ণ নাম <span>*</span></label>
+        <input type="text" class="form-control" id="custName" placeholder="আপনার নাম লিখুন">
+      </div>
+      <div class="form-group">
+        <label>ফোন নম্বর <span>*</span></label>
+        <input type="tel" class="form-control" id="custPhone" placeholder="01XXXXXXXXX">
+      </div>
+      <div class="form-group">
+        <label>সম্পূর্ণ ঠিকানা <span>*</span></label>
+        <textarea class="form-control" id="custAddress" rows="2" placeholder="বাড়ি নং, রাস্তা, এলাকার নাম"></textarea>
+      </div>
+      <div class="form-group">
+        <label>জেলা <span>*</span></label>
+        <input type="text" class="form-control" id="custDistrict" placeholder="আপনার জেলার নাম">
+      </div>
+
+      <!-- Payment Method -->
+      <div class="form-group">
+        <label>পেমেন্ট পদ্ধতি <span>*</span></label>
+        <div class="radio-group">
+          <label class="radio-option" onclick="selectPayment(this, 'cash')">
+            <input type="radio" name="payment">
+            <div class="radio-dot"></div>
+            <div class="radio-text">
+              <strong>💵 ক্যাশ অন ডেলিভারি</strong>
+              <small>পণ্য পাওয়ার পরে পেমেন্ট করুন</small>
+            </div>
+          </label>
+          <label class="radio-option" onclick="selectPayment(this, 'full')">
+            <input type="radio" name="payment">
+            <div class="radio-dot"></div>
+            <div class="radio-text">
+              <strong>✅ সম্পূর্ণ টাকা পরিশোধ করুন</strong>
+              <small>বিকাশে সম্পূর্ণ মূল্য পেমেন্ট করুন</small>
+            </div>
+          </label>
+          <label class="radio-option" onclick="selectPayment(this, 'delivery')">
+            <input type="radio" name="payment">
+            <div class="radio-dot"></div>
+            <div class="radio-text">
+              <strong>🚚 ডেলিভারি চার্জ পরিশোধ করুন</strong>
+              <small>শুধু ডেলিভারি চার্জ বিকাশে পাঠান (ঢাকা: ৳৮০ / বাইরে: ৳১৩০)</small>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- bKash Fields (shown when bkash selected) -->
+      <div class="bkash-fields" id="bkashFields">
+        <div class="form-group">
+          <label>আপনি যে নম্বর থেকে বিকাশে টাকা পাঠিয়েছেন সেই নম্বরটি লিখুন <span>*</span></label>
+          <input type="tel" class="form-control" id="bkashSender" placeholder="01XXXXXXXXX">
+        </div>
+      </div>
+
+      <p class="no-watch-msg" id="noWatchMsg">⚠️ অনুগ্রহ করে উপরে থেকে একটি ঘড়ি সিলেক্ট করুন</p>
+
+      <button class="submit-btn" onclick="submitOrder()" id="submitBtn">
+        ✅ অর্ডার নিশ্চিত করুন
+      </button>
+    </div>
   </div>
 </section>
+
+<div class="gold-divider"></div>
 
 <!-- REVIEWS -->
 <section id="reviews">
-  <h2 class="sec-title reveal">গ্রাহকদের <span>মতামত</span></h2>
-  <p class="sec-sub reveal">আমাদের সন্তুষ্ট গ্রাহকরা কী বলছেন</p>
-  <div class="divider"></div>
+  <div class="section-header">
+    <span class="section-tag">✦ গ্রাহক রিভিউ</span>
+    <h2 class="section-title">আমাদের সন্তুষ্ট গ্রাহকরা</h2>
+    <p class="section-sub">হাজারো গ্রাহক আমাদের পণ্য ব্যবহার করে সন্তুষ্ট।</p>
+  </div>
   <div class="reviews-grid">
 
-    <div class="review-card reveal">
+    <div class="review-card">
       <div class="stars">★★★★★</div>
-      <div class="review-text">"ঘড়ির কোয়ালিটি অনেক ভালো। হাতে খুব প্রিমিয়াম লাগে। আগে অনলাইনে অর্ডার দিতে ভয় পেতাম, কিন্তু এখানে একদম বিশ্বাসযোগ্য।"</div>
+      <p class="review-text">"অসাধারণ মানের ঘড়ি! Classic Elite Pro কিনেছিলাম, এক মাস ধরে পরছি — একটুও সমস্যা নেই। দাম অনুযায়ী মান অনেক ভালো।"</p>
       <div class="reviewer">
         <div class="reviewer-avatar">রা</div>
-        <div class="reviewer-info">
-          <div class="name">রাকিব হোসেন</div>
-          <div class="loc">📍 ঢাকা</div>
+        <div>
+          <div class="reviewer-name">রাহেলা বেগম</div>
+          <div class="reviewer-loc">ঢাকা, মিরপুর</div>
         </div>
       </div>
     </div>
 
-    <div class="review-card reveal">
+    <div class="review-card">
       <div class="stars">★★★★★</div>
-      <div class="review-text">"ছবির চেয়েও সুন্দর ছিল। ডেলিভারিও অনেক দ্রুত পেয়েছি। পরিবারের সবাইকে এই শপ থেকে অর্ডার করতে বলব।"</div>
+      <p class="review-text">"Royal Gold Edition কিনেছি, দেখতে এত সুন্দর যে সবাই জিজ্ঞেস করে কোথায় পেলাম। ডেলিভারিও অনেক দ্রুত পেয়েছি।"</p>
       <div class="reviewer">
-        <div class="reviewer-avatar">সো</div>
-        <div class="reviewer-info">
-          <div class="name">সোহেল রানা</div>
-          <div class="loc">📍 চট্টগ্রাম</div>
+        <div class="reviewer-avatar">ক</div>
+        <div>
+          <div class="reviewer-name">কামরুজ্জামান</div>
+          <div class="reviewer-loc">চট্টগ্রাম</div>
         </div>
       </div>
     </div>
 
-    <div class="review-card reveal">
+    <div class="review-card">
       <div class="stars">★★★★★</div>
-      <div class="review-text">"এই দামে এত ভালো ঘড়ি আশা করিনি। সত্যিই অবাক হয়ে গেছি। বাকি সব জিনিসও এখান থেকে নেব।"</div>
+      <p class="review-text">"Sport Pro X একদম পার্ফেক্ট! জিম করি, বাইরে যাই — সবসময় পরি। ওয়াটারপ্রুফ বলে সুইমিং পুলেও কোনো সমস্যা হয়নি। Great product!"</p>
       <div class="reviewer">
-        <div class="reviewer-avatar">মা</div>
-        <div class="reviewer-info">
-          <div class="name">মাহিন আহমেদ</div>
-          <div class="loc">📍 সিলেট</div>
+        <div class="reviewer-avatar">সা</div>
+        <div>
+          <div class="reviewer-name">সাজিদুল ইসলাম</div>
+          <div class="reviewer-loc">সিলেট</div>
         </div>
       </div>
     </div>
 
-    <div class="review-card reveal">
-      <div class="stars">★★★★★</div>
-      <div class="review-text">"অর্ডার করার পর খুব দ্রুত যোগাযোগ করেছে। ক্যাশ অন ডেলিভারি সুবিধা থাকায় নিশ্চিন্তে অর্ডার দিতে পেরেছি।"</div>
+    <div class="review-card">
+      <div class="stars">★★★★☆</div>
+      <p class="review-text">"Urban Black Steel কিনেছি, দেখতে খুব স্টাইলিশ। অফিসে পরে গেলে সবাই প্রশংসা করে। দামেও সাশ্রয়ী। Ketu's Mart-কে ধন্যবাদ!"</p>
       <div class="reviewer">
-        <div class="reviewer-avatar">তা</div>
-        <div class="reviewer-info">
-          <div class="name">তানভীর ইসলাম</div>
-          <div class="loc">📍 খুলনা</div>
+        <div class="reviewer-avatar">না</div>
+        <div>
+          <div class="reviewer-name">নাফিজা তাসনিম</div>
+          <div class="reviewer-loc">রাজশাহী</div>
         </div>
       </div>
     </div>
@@ -1072,48 +955,30 @@
   </div>
 </section>
 
-<!-- TRUST SECTION -->
-<section id="trust">
-  <h2 class="sec-title reveal">কেন <span>Ketu's Mart</span> বেছে নেবেন?</h2>
-  <div class="divider"></div>
-  <div class="trust-grid">
-    <div class="trust-card reveal">
-      <div class="trust-ico">✅</div>
-      <div class="trust-name">১০০% কোয়ালিটি চেক</div>
-      <div class="trust-desc">প্রতিটি ঘড়ি পাঠানোর আগে মান নিশ্চিত করা হয়</div>
-    </div>
-    <div class="trust-card reveal">
-      <div class="trust-ico">🔒</div>
-      <div class="trust-name">নিরাপদ পেমেন্ট</div>
-      <div class="trust-desc">আপনার তথ্য সম্পূর্ণ সুরক্ষিত ও গোপনীয়</div>
-    </div>
-    <div class="trust-card reveal">
-      <div class="trust-ico">⚡</div>
-      <div class="trust-name">দ্রুত ডেলিভারি</div>
-      <div class="trust-desc">অর্ডারের ১-২ কর্মদিবসের মধ্যে পৌঁছে দেওয়া হয়</div>
-    </div>
-    <div class="trust-card reveal">
-      <div class="trust-ico">🇧🇩</div>
-      <div class="trust-name">বিশ্বস্ত অনলাইন শপ</div>
-      <div class="trust-desc">বাংলাদেশের হাজারো সন্তুষ্ট গ্রাহকের পছন্দের শপ</div>
-    </div>
-  </div>
-</section>
+<div class="gold-divider"></div>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="contact-wrap">
-    <h2 class="sec-title reveal">আমাদের সাথে <span>যোগাযোগ করুন</span></h2>
-    <p class="sec-sub reveal">যেকোনো প্রশ্ন বা সহায়তার জন্য আমরা সবসময় প্রস্তুত</p>
-    <div class="divider"></div>
-    <div class="contact-btns reveal">
-      <a href="https://wa.me/8801950137472" class="btn-wa" target="_blank">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        WhatsApp করুন
+  <div class="contact-grid">
+    <div>
+      <span class="section-tag">✦ যোগাযোগ</span>
+      <h2 class="section-title">আমাদের সাথে<br>যোগাযোগ করুন</h2>
+      <p class="section-sub">যেকোনো প্রশ্ন বা সমস্যার জন্য আমাদের সাথে সরাসরি যোগাযোগ করুন। আমরা সবসময় আপনার পাশে আছি।</p>
+    </div>
+    <div class="contact-links">
+      <a href="https://wa.me/8801950137472" target="_blank" class="contact-link">
+        <div class="contact-link-icon wa">📱</div>
+        <div class="contact-link-text">
+          <strong>WhatsApp-এ মেসেজ করুন</strong>
+          <span>01950137472</span>
+        </div>
       </a>
-      <a href="https://www.facebook.com/profile.php?id=61552297742624" class="btn-fb" target="_blank">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        Facebook পেজ
+      <a href="https://www.facebook.com/profile.php?id=61552297742624" target="_blank" class="contact-link">
+        <div class="contact-link-icon fb">📘</div>
+        <div class="contact-link-text">
+          <strong>Facebook পেজ ভিজিট করুন</strong>
+          <span>Ketu's Mart Official Page</span>
+        </div>
       </a>
     </div>
   </div>
@@ -1121,273 +986,203 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-brand">Ketu's Mart</div>
-  <p>বাংলাদেশের বিশ্বস্ত প্রিমিয়াম ঘড়ির অনলাইন শপ</p>
-  <p style="margin-top:8px">© ২০২৫ Ketu's Mart | সর্বস্বত্ব সংরক্ষিত</p>
-  <p style="margin-top:4px" class="gold-text">Powered by Ketu's Mart</p>
+  <div class="footer-logo">Ketu's Mart</div>
+  <p>প্রিমিয়াম ঘড়ির সেরা গন্তব্য — বাংলাদেশ জুড়ে ডেলিভারি</p>
+  <p style="margin-top: 0.5rem;">© ২০২৫ Ketu's Mart | সর্বস্বত্ব সংরক্ষিত</p>
 </footer>
 
-<!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/8801950137472" class="float-wa" target="_blank" title="WhatsApp করুন">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
-
-<!-- STICKY CTA -->
-<div class="sticky-cta">
-  <a href="#order">🛒 এখনই অর্ডার করুন — স্টক সীমিত!</a>
+<!-- FLOATING BUTTONS -->
+<div class="floating-btns">
+  <a href="https://wa.me/8801950137472" target="_blank" class="float-btn wa" title="WhatsApp">📱</a>
+  <a href="https://www.facebook.com/profile.php?id=61552297742624" target="_blank" class="float-btn fb" title="Facebook">📘</a>
 </div>
 
-<!-- EmailJS Library -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal-box">
+    <div class="modal-icon">✅</div>
+    <h2>অর্ডার সফল হয়েছে!</h2>
+    <p id="successMsg">আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে। আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।</p>
+    <button class="modal-close" onclick="closeModal()">ধন্যবাদ</button>
+  </div>
+</div>
 
 <script>
-// ── PRODUCT SELECTION ──
-const products = {
-  1: { name: 'লাক্সারি ক্লাসিক রিস্টওয়াচ', price: '৯৯০৳', img: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=500&q=80' },
-  2: { name: 'প্রিমিয়াম স্পোর্টস ওয়াচ',   price: '১,১৯০৳', img: 'https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=500&q=80' },
-  3: { name: 'গোল্ড এডিশন ওয়াচ',           price: '১,৪৯০৳', img: 'https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=500&q=80' },
-  4: { name: 'ব্ল্যাক এডিশন ওয়াচ',         price: '১,২৯০৳', img: 'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=500&q=80' }
-};
-let selectedProduct = null;
-
-function selectProduct(id) {
-  selectedProduct = products[id];
-
-  // highlight card
-  document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
-  document.getElementById('prod-' + id).classList.add('selected');
-
-  // update btn text
-  document.querySelectorAll('.btn-order-sm').forEach(b => b.textContent = 'এই ঘড়িটি সিলেক্ট করুন');
-  document.querySelector('#prod-' + id + ' .btn-order-sm').textContent = '✓ সিলেক্ট হয়েছে';
-
-  // show preview in form
-  document.getElementById('prevImg').src  = selectedProduct.img;
-  document.getElementById('prevName').textContent  = selectedProduct.name;
-  document.getElementById('prevPrice').textContent = selectedProduct.price;
-  document.getElementById('selectedProductPreview').style.display = 'flex';
-  document.getElementById('noProductWarn').style.display = 'none';
-
-  // scroll to order
-  setTimeout(() => {
-    document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
-  }, 300);
-}
-
-// ── LOADER ──
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const l = document.getElementById('loader');
-    l.style.opacity = '0';
-    setTimeout(() => l.style.display = 'none', 500);
-  }, 900);
-});
-
-// ── SCROLL REVEAL ──
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// ── SLIDER ──
-let current = 0;
-const track = document.getElementById('sliderTrack');
-const slides = track.querySelectorAll('.slide');
-const dotsWrap = document.getElementById('sliderDots');
-slides.forEach((_, i) => {
-  const d = document.createElement('span');
-  d.className = 'dot' + (i===0?' active':'');
-  d.onclick = () => goTo(i);
-  dotsWrap.appendChild(d);
-});
-function goTo(n) {
-  current = (n + slides.length) % slides.length;
-  track.style.transform = `translateX(-${current * 100}%)`;
-  document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i===current));
-}
-function changeSlide(dir) { goTo(current + dir); }
-setInterval(() => goTo(current + 1), 4000);
-
-// ── QTY ──
-function changeQty(d) {
-  const i = document.getElementById('custQty');
-  const v = parseInt(i.value) + d;
-  if (v >= 1 && v <= 10) i.value = v;
-}
-
-// ── RADIO ──
-function selectRadio(el) {
-  document.querySelectorAll('.radio-item').forEach(r => r.classList.remove('checked'));
-  el.classList.add('checked');
-}
-
-// ── DELIVERY DISPLAY ──
-function updateDelivery() {
-  const area = document.getElementById('custArea').value;
-  const info = document.getElementById('deliveryInfo');
-  const charge = document.getElementById('deliveryCharge');
-  if (area === 'dhaka') {
-    info.style.display = 'block'; charge.textContent = '৮০৳';
-  } else if (area === 'outside') {
-    info.style.display = 'block'; charge.textContent = '১৩০৳';
-  } else {
-    info.style.display = 'none';
+  // ===== FIX LAYOUT OFFSET =====
+  function fixOffsets() {
+    const bar = document.querySelector('.offer-bar');
+    if (!bar) return;
+    const barH = bar.getBoundingClientRect().height;
+    document.documentElement.style.setProperty('--bar-h', barH + 'px');
+    document.documentElement.style.setProperty('--hero-pt', (barH + 70 + 30) + 'px');
   }
-}
+  fixOffsets();
+  window.addEventListener('resize', fixOffsets);
 
-// ── FORM VALIDATION ──
-function validateForm() {
-  let valid = true;
-  const name = document.getElementById('custName').value.trim();
-  const phone = document.getElementById('custPhone').value.trim();
-  const address = document.getElementById('custAddress').value.trim();
-  const area = document.getElementById('custArea').value;
-  const pay = document.querySelector('input[name="payment"]:checked');
+  // ===== OFFER TIMER =====
+  // Resets every 24h so the 3-day countdown always feels fresh each day
+  function getTimerEnd() {
+    const key = 'ketuTimerEnd';
+    const resetKey = 'ketuTimerReset';
+    const now = Date.now();
+    const THREE_DAYS = 3 * 24 * 60 * 60 * 1000;
+    const ONE_DAY   = 24 * 60 * 60 * 1000;
 
-  // product check
-  if (!selectedProduct) {
-    document.getElementById('noProductWarn').style.display = 'block';
-    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-    valid = false;
-  } else {
-    document.getElementById('noProductWarn').style.display = 'none';
-  }
+    let end   = parseInt(localStorage.getItem(key)   || '0');
+    let reset = parseInt(localStorage.getItem(resetKey) || '0');
 
-  if (!name) { show('nameErr'); valid = false; } else hide('nameErr');
-  if (!/^01[3-9]\d{8}$/.test(phone)) { show('phoneErr'); valid = false; } else hide('phoneErr');
-  if (!address) { show('addressErr'); valid = false; } else hide('addressErr');
-  if (!area) { show('areaErr'); valid = false; } else hide('areaErr');
-  if (!pay) { show('payErr'); valid = false; } else hide('payErr');
-  return valid;
-}
-function show(id) { document.getElementById(id).style.display = 'block'; }
-function hide(id) { document.getElementById(id).style.display = 'none'; }
-
-// ── EmailJS INITIALIZATION ──
-emailjs.init("nJeNfJEo6_6JzsFOq");
-
-// ── SUBMIT ORDER WITH EMAILJS ──
-async function submitOrder(e) {
-  e.preventDefault();
-  if (!validateForm()) return;
-
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.textContent = '⏳ পাঠানো হচ্ছে...';
-
-  // Get payment method text
-  let paymentMethod = document.querySelector('input[name="payment"]:checked');
-  let paymentText = paymentMethod ? paymentMethod.parentElement.querySelector('.radio-label').innerText : '';
-  
-  // Get area text
-  let areaSelect = document.getElementById('custArea');
-  let areaText = areaSelect.value === 'dhaka' ? 'ঢাকা' : (areaSelect.value === 'outside' ? 'ঢাকার বাইরে' : '');
-  
-  // Prepare email template parameters
-  const templateParams = {
-    to_name: "Ketu's Mart Admin",
-    from_name: document.getElementById('custName').value.trim(),
-    customer_phone: document.getElementById('custPhone').value.trim(),
-    customer_address: document.getElementById('custAddress').value.trim(),
-    customer_area: areaText,
-    product_name: selectedProduct.name,
-    product_price: selectedProduct.price,
-    quantity: document.getElementById('custQty').value,
-    payment_method: paymentText,
-    order_time: new Date().toLocaleString('bn-BD'),
-    message: `অর্ডারের বিবরণ:
-পণ্য: ${selectedProduct.name}
-দাম: ${selectedProduct.price}
-পরিমাণ: ${document.getElementById('custQty').value}
-পেমেন্ট পদ্ধতি: ${paymentText}
-ঠিকানা: ${document.getElementById('custAddress').value.trim()}, ${areaText}
-মোবাইল: ${document.getElementById('custPhone').value.trim()}`
-  };
-
-  try {
-    await emailjs.send('service_qu1fxng', 'template_cploz6b', templateParams);
-    
-    document.getElementById('orderForm').style.display = 'none';
-    document.getElementById('successMsg').style.display = 'block';
-    document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth', block: 'center' });
-  } catch (error) {
-    console.error('EmailJS error:', error);
-    alert('দুঃখিত, অর্ডার পাঠাতে সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন বা WhatsApp এ যোগাযোগ করুন।');
-  } finally {
-    btn.disabled = false;
-    btn.textContent = '✅ অর্ডার কনফার্ম করুন';
-  }
-}
-
-// ── COUNTDOWN TIMER — প্রতি ১ দিন পরপর স্বয়ংক্রিয়ভাবে রিসেট ──
-(function() {
-  // প্রতিটি সাইকেল = ১ দিন (86400 সেকেন্ড)
-  const CYCLE = 1 * 24 * 60 * 60 * 1000; // 1 day in ms
-  const KEY   = 'ketu_cycle_start';
-
-  // সাইকেল শুরুর সময় localStorage-এ রাখি
-  // যদি না থাকে বা মেয়াদ শেষ হয়ে যায়, নতুন সাইকেল শুরু করি
-  function getOrResetCycleStart() {
-    let start = localStorage.getItem(KEY);
-    if (!start) {
-      start = Date.now();
-      localStorage.setItem(KEY, start);
-    } else {
-      start = parseInt(start);
-      // যদি ১ দিন পেরিয়ে গেছে → রিসেট করো
-      while (Date.now() >= start + CYCLE) {
-        start += CYCLE;
-        localStorage.setItem(KEY, start);
-      }
+    // First visit ever — set fresh 3-day end + daily reset marker
+    if (!end || now > end) {
+      end   = now + THREE_DAYS;
+      reset = now + ONE_DAY;
+      localStorage.setItem(key,   end);
+      localStorage.setItem(resetKey, reset);
     }
-    return start;
-  }
 
-  const elD  = document.getElementById('t-days');
-  const elH  = document.getElementById('t-hours');
-  const elM  = document.getElementById('t-mins');
-  const elS  = document.getElementById('t-secs');
-  const fill = document.getElementById('timer-fill');
-  const pct  = document.getElementById('pct-label');
+    // Each day: reset countdown back to 3 days so it never reaches zero
+    if (now > reset) {
+      end   = now + THREE_DAYS;
+      reset = now + ONE_DAY;
+      localStorage.setItem(key,   end);
+      localStorage.setItem(resetKey, reset);
+    }
+
+    return end;
+  }
 
   function pad(n) { return String(n).padStart(2, '0'); }
 
-  function flipEl(el, val) {
-    const v = pad(val);
-    if (el.textContent !== v) {
-      el.classList.remove('flip');
-      void el.offsetWidth;
-      el.classList.add('flip');
-      el.textContent = v;
+  function tickTimer() {
+    const end  = getTimerEnd();
+    const diff = Math.max(0, end - Date.now());
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+    document.getElementById('t-days').textContent  = pad(days);
+    document.getElementById('t-hours').textContent = pad(hours);
+    document.getElementById('t-mins').textContent  = pad(mins);
+    document.getElementById('t-secs').textContent  = pad(secs);
+  }
+
+  tickTimer();
+  setInterval(tickTimer, 1000);
+
+
+  emailjs.init('nJeNfJEo6_6JzsFOq');
+
+  let selectedWatch = null;
+  let selectedPayment = null;
+
+  function selectWatch(card, name, price) {
+    document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedWatch = { name, price };
+    const display = document.getElementById('selectedWatchDisplay');
+    document.getElementById('selectedWatchName').textContent = name;
+    document.getElementById('selectedWatchPrice').textContent = ' — ' + price;
+    display.classList.add('show');
+    document.getElementById('noWatchMsg').style.display = 'none';
+    setTimeout(() => {
+      document.getElementById('order').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 300);
+  }
+
+  function selectPayment(el, type) {
+    document.querySelectorAll('.radio-option').forEach(o => o.classList.remove('active'));
+    el.classList.add('active');
+    selectedPayment = type;
+    const bf = document.getElementById('bkashFields');
+    if (type === 'full' || type === 'delivery') {
+      bf.classList.add('show');
+    } else {
+      bf.classList.remove('show');
     }
   }
 
-  function tick() {
-    const cycleStart = getOrResetCycleStart();
-    const cycleEnd   = cycleStart + CYCLE;
-    const remaining  = Math.max(0, Math.floor((cycleEnd - Date.now()) / 1000));
+  function submitOrder() {
+    const name = document.getElementById('custName').value.trim();
+    const phone = document.getElementById('custPhone').value.trim();
+    const address = document.getElementById('custAddress').value.trim();
+    const district = document.getElementById('custDistrict').value.trim();
 
-    const days  = Math.floor(remaining / 86400);
-    const hours = Math.floor((remaining % 86400) / 3600);
-    const mins  = Math.floor((remaining % 3600) / 60);
-    const secs  = remaining % 60;
+    if (!selectedWatch) {
+      document.getElementById('noWatchMsg').style.display = 'block';
+      document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    if (!name || !phone || !address || !district) {
+      alert('অনুগ্রহ করে সকল তথ্য পূরণ করুন।');
+      return;
+    }
+    if (!selectedPayment) {
+      alert('অনুগ্রহ করে পেমেন্ট পদ্ধতি সিলেক্ট করুন।');
+      return;
+    }
 
-    flipEl(elD, days);
-    flipEl(elH, hours);
-    flipEl(elM, mins);
-    flipEl(elS, secs);
+    let bkashSender = '';
+    if (selectedPayment === 'full' || selectedPayment === 'delivery') {
+      bkashSender = document.getElementById('bkashSender').value.trim();
+      if (!bkashSender) {
+        alert('অনুগ্রহ করে যে নম্বর থেকে বিকাশে টাকা পাঠিয়েছেন সেই নম্বরটি দিন।');
+        return;
+      }
+    }
 
-    // progress bar
-    const ratio  = remaining / (CYCLE / 1000);
-    const pctVal = Math.round(ratio * 100);
-    fill.style.width = pctVal + '%';
-    pct.textContent  = pctVal + '% বাকি';
+    const paymentLabels = {
+      cash: 'ক্যাশ অন ডেলিভারি',
+      full: 'সম্পূর্ণ টাকা পরিশোধ (বিকাশ)',
+      delivery: 'ডেলিভারি চার্জ পরিশোধ (বিকাশ)'
+    };
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'অর্ডার পাঠানো হচ্ছে...';
+
+    const templateParams = {
+      product_name: selectedWatch.name,
+      product_price: selectedWatch.price,
+      customer_name: name,
+      customer_phone: phone,
+      customer_address: address,
+      customer_district: district,
+      payment_method: paymentLabels[selectedPayment],
+      bkash_sender: bkashSender || 'প্রযোজ্য নয়',
+      order_date: new Date().toLocaleString('bn-BD')
+    };
+
+    emailjs.send('service_mhhh89u', 'template_oiuo2lt', templateParams)
+      .then(() => {
+        btn.disabled = false;
+        btn.textContent = '✅ অর্ডার নিশ্চিত করুন';
+        document.getElementById('successMsg').textContent =
+          `"${selectedWatch.name}" এর জন্য আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।`;
+        document.getElementById('successModal').classList.add('show');
+        resetForm();
+      })
+      .catch(() => {
+        btn.disabled = false;
+        btn.textContent = '✅ অর্ডার নিশ্চিত করুন';
+        alert('অর্ডার পাঠাতে সমস্যা হয়েছে। অনুগ্রহ করে WhatsApp এ যোগাযোগ করুন।');
+      });
   }
 
-  tick();
-  setInterval(tick, 1000);
-})();
-</script>
+  function resetForm() {
+    selectedWatch = null;
+    selectedPayment = null;
+    document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('selectedWatchDisplay').classList.remove('show');
+    document.querySelectorAll('.radio-option').forEach(o => o.classList.remove('active'));
+    document.getElementById('bkashFields').classList.remove('show');
+    ['custName','custPhone','custAddress','custDistrict','bkashSender'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+  }
 
+  function closeModal() {
+    document.getElementById('successModal').classList.remove('show');
+  }
+</script>
 </body>
 </html>
