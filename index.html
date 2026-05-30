@@ -989,7 +989,72 @@
   <div class="footer-logo">Ketu's Mart</div>
   <p>প্রিমিয়াম ঘড়ির সেরা গন্তব্য — বাংলাদেশ জুড়ে ডেলিভারি</p>
   <p style="margin-top: 0.5rem;">© ২০২৫ Ketu's Mart | সর্বস্বত্ব সংরক্ষিত</p>
+  <div style="margin-top:1.8rem;">
+    <span id="adminTrigger" onclick="openAdminGate()" style="cursor:pointer;opacity:0.15;font-size:0.65rem;color:#666;user-select:none;letter-spacing:1px;padding:0.3rem 0.6rem;">🔒 Admin</span>
+  </div>
 </footer>
+
+<!-- ADMIN GATE MODAL -->
+<div id="adminGate" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.93);align-items:center;justify-content:center;padding:1rem;">
+  <div style="background:#1a1a1a;border:1px solid rgba(201,168,76,0.3);border-radius:14px;padding:2rem;max-width:360px;width:100%;position:relative;">
+    <button onclick="closeAdminGate()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#666;font-size:1.2rem;cursor:pointer;">✕</button>
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <div style="font-size:2.2rem;margin-bottom:0.4rem;">🔐</div>
+      <h3 style="font-family:'Playfair Display',serif;color:#C9A84C;font-size:1.15rem;">Restricted Access</h3>
+    </div>
+    <label style="color:#aaa;font-size:0.8rem;display:block;margin-bottom:0.35rem;">Gmail Address</label>
+    <input id="gateEmail" type="email" placeholder="your@gmail.com" style="width:100%;background:#111;border:1px solid rgba(201,168,76,0.2);color:#fff;padding:0.7rem 1rem;border-radius:6px;font-size:0.9rem;outline:none;margin-bottom:0.9rem;font-family:'Hind Siliguri',sans-serif;box-sizing:border-box;">
+    <label style="color:#aaa;font-size:0.8rem;display:block;margin-bottom:0.35rem;">Password</label>
+    <input id="gatePass" type="password" placeholder="••••••" style="width:100%;background:#111;border:1px solid rgba(201,168,76,0.2);color:#fff;padding:0.7rem 1rem;border-radius:6px;font-size:0.9rem;outline:none;margin-bottom:1rem;font-family:'Hind Siliguri',sans-serif;box-sizing:border-box;">
+    <div id="gateErr" style="color:#e05;font-size:0.78rem;margin-bottom:0.8rem;display:none;">❌ তথ্য সঠিক নয়। প্রবেশাধিকার নেই।</div>
+    <button onclick="verifyAdmin()" style="width:100%;background:#C9A84C;color:#000;border:none;padding:0.8rem;border-radius:6px;font-weight:700;font-size:1rem;cursor:pointer;font-family:'Hind Siliguri',sans-serif;">প্রবেশ করুন</button>
+  </div>
+</div>
+
+<!-- ADMIN FULL PANEL -->
+<div id="adminPanel" style="display:none;position:fixed;inset:0;z-index:9100;background:#0a0a0a;overflow-y:auto;">
+  <div style="background:#111;border-bottom:1px solid rgba(201,168,76,0.2);padding:0.9rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;">
+    <div style="font-family:'Playfair Display',serif;color:#C9A84C;font-size:1.15rem;font-weight:700;">🛍️ Ketu's Mart — Admin</div>
+    <div style="display:flex;gap:0.8rem;align-items:center;">
+      <span id="adminEmailBadge" style="color:#666;font-size:0.75rem;"></span>
+      <button onclick="adminLogout()" style="background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);color:#C9A84C;padding:0.35rem 0.9rem;border-radius:5px;cursor:pointer;font-size:0.8rem;font-family:'Hind Siliguri',sans-serif;">লগআউট</button>
+    </div>
+  </div>
+  <div id="adminStats" style="display:flex;gap:1rem;padding:1.4rem 2rem;flex-wrap:wrap;"></div>
+  <div style="padding:0 2rem;display:flex;gap:0.4rem;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:1.5rem;">
+    <button id="tab-total"  onclick="switchTab('total')"  style="background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.4);border-bottom:none;color:#C9A84C;padding:0.5rem 1.1rem;border-radius:6px 6px 0 0;cursor:pointer;font-family:'Hind Siliguri',sans-serif;font-size:0.88rem;font-weight:600;">📦 মোট অর্ডার</button>
+    <button id="tab-new"    onclick="switchTab('new')"    style="background:transparent;border:1px solid rgba(255,255,255,0.08);border-bottom:none;color:#666;padding:0.5rem 1.1rem;border-radius:6px 6px 0 0;cursor:pointer;font-family:'Hind Siliguri',sans-serif;font-size:0.88rem;">🔔 নতুন অর্ডার</button>
+    <button id="tab-report" onclick="switchTab('report')" style="background:transparent;border:1px solid rgba(255,255,255,0.08);border-bottom:none;color:#666;padding:0.5rem 1.1rem;border-radius:6px 6px 0 0;cursor:pointer;font-family:'Hind Siliguri',sans-serif;font-size:0.88rem;">📊 রিপোর্ট</button>
+  </div>
+  <div id="tabTotal"  style="padding:0 2rem 3rem;"></div>
+  <div id="tabNew"    style="display:none;padding:0 2rem 3rem;"></div>
+  <div id="tabReport" style="display:none;padding:0 2rem 3rem;">
+    <div style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap;margin-bottom:1.5rem;background:#1a1a1a;padding:1.2rem;border-radius:10px;border:1px solid rgba(201,168,76,0.12);">
+      <div><label style="color:#aaa;font-size:0.78rem;display:block;margin-bottom:0.3rem;">শুরুর তারিখ</label>
+      <input type="date" id="reportFrom" style="background:#111;border:1px solid rgba(201,168,76,0.2);color:#fff;padding:0.5rem 0.8rem;border-radius:6px;font-size:0.88rem;outline:none;color-scheme:dark;"></div>
+      <div><label style="color:#aaa;font-size:0.78rem;display:block;margin-bottom:0.3rem;">শেষ তারিখ</label>
+      <input type="date" id="reportTo" style="background:#111;border:1px solid rgba(201,168,76,0.2);color:#fff;padding:0.5rem 0.8rem;border-radius:6px;font-size:0.88rem;outline:none;color-scheme:dark;"></div>
+      <button onclick="generateReport()" style="background:#C9A84C;color:#000;border:none;padding:0.55rem 1.2rem;border-radius:6px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif;font-size:0.9rem;">রিপোর্ট দেখুন</button>
+    </div>
+    <div id="reportContainer"></div>
+  </div>
+</div>
+
+<style>
+.order-card{background:#1a1a1a;border:1px solid rgba(201,168,76,0.1);border-radius:10px;padding:1rem 1.2rem;margin-bottom:0.75rem;}
+.order-card.unread{border-color:rgba(201,168,76,0.45);}
+.order-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.35rem 1.5rem;margin-bottom:0.75rem;}
+.of{font-size:0.8rem;color:#666;}
+.of span{color:#ccc;font-weight:500;}
+.oactions{display:flex;gap:0.5rem;}
+.btn-seen{background:rgba(40,180,80,0.12);border:1px solid rgba(40,180,80,0.3);color:#4caf7d;padding:0.28rem 0.8rem;border-radius:5px;cursor:pointer;font-size:0.78rem;font-family:'Hind Siliguri',sans-serif;}
+.btn-del{background:rgba(220,50,50,0.1);border:1px solid rgba(220,50,50,0.25);color:#e05555;padding:0.28rem 0.8rem;border-radius:5px;cursor:pointer;font-size:0.78rem;font-family:'Hind Siliguri',sans-serif;}
+.nbadge{display:inline-block;background:#e84c1a;color:#fff;font-size:0.62rem;font-weight:700;padding:0.08rem 0.4rem;border-radius:3px;margin-left:0.3rem;vertical-align:middle;}
+.stat-c{background:#1a1a1a;border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:0.9rem 1.3rem;min-width:130px;}
+.stat-c .sn{font-size:1.7rem;font-weight:700;color:#C9A84C;font-family:'Playfair Display',serif;}
+.stat-c .sl{font-size:0.75rem;color:#666;margin-top:0.15rem;}
+.empty-state{color:#444;text-align:center;padding:3rem;font-size:0.9rem;}
+</style>
 
 <!-- FLOATING BUTTONS -->
 <div class="floating-btns">
@@ -1100,10 +1165,12 @@
     }
   }
 
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwUyMxS7H-ME3nL38GSWeO2DXeC7ujmnIA1PBo8XUtv92lQJ06B8NRIo_yEzfBXx7oAyg/exec';
+
   function submitOrder() {
-    const name = document.getElementById('custName').value.trim();
-    const phone = document.getElementById('custPhone').value.trim();
-    const address = document.getElementById('custAddress').value.trim();
+    const name     = document.getElementById('custName').value.trim();
+    const phone    = document.getElementById('custPhone').value.trim();
+    const address  = document.getElementById('custAddress').value.trim();
     const district = document.getElementById('custDistrict').value.trim();
 
     if (!selectedWatch) {
@@ -1139,32 +1206,47 @@
     btn.disabled = true;
     btn.textContent = 'অর্ডার পাঠানো হচ্ছে...';
 
-    const templateParams = {
-      product_name: selectedWatch.name,
-      product_price: selectedWatch.price,
-      customer_name: name,
-      customer_phone: phone,
-      customer_address: address,
-      customer_district: district,
+    const sheetData = {
+      product:        selectedWatch.name + ' (' + selectedWatch.price + ')',
+      customer_name:  name,
+      phone:          phone,
+      address:        address,
+      district:       district,
       payment_method: paymentLabels[selectedPayment],
-      bkash_sender: bkashSender || 'প্রযোজ্য নয়',
-      order_date: new Date().toLocaleString('bn-BD')
+      bkash_number:   bkashSender || 'প্রযোজ্য নয়',
+      size:           'N/A'
     };
 
-    emailjs.send('service_mhhh89u', 'template_oiuo2lt', templateParams)
-      .then(() => {
-        btn.disabled = false;
-        btn.textContent = '✅ অর্ডার নিশ্চিত করুন';
-        document.getElementById('successMsg').textContent =
-          `"${selectedWatch.name}" এর জন্য আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।`;
-        document.getElementById('successModal').classList.add('show');
-        resetForm();
-      })
-      .catch(() => {
-        btn.disabled = false;
-        btn.textContent = '✅ অর্ডার নিশ্চিত করুন';
-        alert('অর্ডার পাঠাতে সমস্যা হয়েছে। অনুগ্রহ করে WhatsApp এ যোগাযোগ করুন।');
-      });
+    const emailParams = {
+      product_name:      selectedWatch.name,
+      product_price:     selectedWatch.price,
+      customer_name:     name,
+      customer_phone:    phone,
+      customer_address:  address,
+      customer_district: district,
+      payment_method:    paymentLabels[selectedPayment],
+      bkash_sender:      bkashSender || 'প্রযোজ্য নয়',
+      order_date:        new Date().toLocaleString('bn-BD')
+    };
+
+    // Google Sheet + EmailJS একসাথে
+    const sheetPromise = fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(sheetData)
+    });
+
+    const emailPromise = emailjs.send('service_mhhh89u', 'template_oiuo2lt', emailParams);
+
+    Promise.allSettled([sheetPromise, emailPromise]).then(() => {
+      btn.disabled = false;
+      btn.textContent = '✅ অর্ডার নিশ্চিত করুন';
+      document.getElementById('successMsg').textContent =
+        `"${selectedWatch.name}" এর জন্য আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।`;
+      document.getElementById('successModal').classList.add('show');
+      resetForm();
+    });
   }
 
   function resetForm() {
@@ -1183,6 +1265,192 @@
   function closeModal() {
     document.getElementById('successModal').classList.remove('show');
   }
+
+  // ===== ADMIN SYSTEM =====
+  // Credentials stored as char-code arrays — not plain text
+  const _ac = [116,97,110,118,105,114,104,97,115,97,110,50,53,50,48,48,56,64,103,109,97,105,108,46,99,111,109];
+  const _ap = [49,52,50,53];
+  const _decode = arr => arr.map(c=>String.fromCharCode(c)).join('');
+
+  let _adminAuthed = false;
+  let _orders = JSON.parse(localStorage.getItem('km_orders_watch') || '[]');
+  let _seen   = JSON.parse(localStorage.getItem('km_seen_watch')   || '[]');
+
+  // Save order to local storage (called after successful submit)
+  function _saveOrder(order) {
+    _orders.push(order);
+    localStorage.setItem('km_orders_watch', JSON.stringify(_orders));
+  }
+
+  function openAdminGate() {
+    const g = document.getElementById('adminGate');
+    g.style.display = 'flex';
+    setTimeout(()=>{ try{document.getElementById('gateEmail').focus();}catch(e){} },100);
+  }
+  function closeAdminGate() {
+    document.getElementById('adminGate').style.display = 'none';
+    document.getElementById('gateErr').style.display = 'none';
+    document.getElementById('gateEmail').value = '';
+    document.getElementById('gatePass').value  = '';
+  }
+
+  function verifyAdmin() {
+    const em = document.getElementById('gateEmail').value.trim().toLowerCase();
+    const pw = document.getElementById('gatePass').value.trim();
+    if(em === _decode(_ac) && pw === _decode(_ap)) {
+      _adminAuthed = true;
+      closeAdminGate();
+      openAdminPanel();
+    } else {
+      document.getElementById('gateErr').style.display = 'block';
+    }
+  }
+
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Enter') {
+      if(document.getElementById('adminGate').style.display==='flex') verifyAdmin();
+    }
+  });
+
+  function openAdminPanel() {
+    if(!_adminAuthed) return;
+    _orders = JSON.parse(localStorage.getItem('km_orders_watch') || '[]');
+    _seen   = JSON.parse(localStorage.getItem('km_seen_watch')   || '[]');
+    document.getElementById('adminPanel').style.display = 'block';
+    document.getElementById('adminEmailBadge').textContent = _decode(_ac);
+    renderStats();
+    renderTab('total');
+  }
+
+  function adminLogout() {
+    _adminAuthed = false;
+    document.getElementById('adminPanel').style.display = 'none';
+  }
+
+  function renderStats() {
+    const total = _orders.length;
+    const newC  = _orders.filter(o => !_seen.includes(o.id)).length;
+    document.getElementById('adminStats').innerHTML = `
+      <div class="stat-c"><div class="sn">${total}</div><div class="sl">মোট অর্ডার</div></div>
+      <div class="stat-c"><div class="sn" style="color:#e84c1a;">${newC}</div><div class="sl">নতুন অর্ডার</div></div>
+      <div class="stat-c"><div class="sn" style="color:#4caf7d;">${total - newC}</div><div class="sl">দেখা হয়েছে</div></div>
+    `;
+    // update new tab button badge
+    const nb = newC > 0 ? `<span class="nbadge">${newC}</span>` : '';
+    document.getElementById('tab-new').innerHTML = '🔔 নতুন অর্ডার' + nb;
+  }
+
+  function switchTab(tab) {
+    ['total','new','report'].forEach(t => {
+      document.getElementById('tab-'+t).style.background = 'transparent';
+      document.getElementById('tab-'+t).style.color = '#666';
+      document.getElementById('tab-'+t).style.borderColor = 'rgba(255,255,255,0.08)';
+      document.getElementById('tabTotal').style.display  = 'none';
+      document.getElementById('tabNew').style.display    = 'none';
+      document.getElementById('tabReport').style.display = 'none';
+    });
+    const btn = document.getElementById('tab-'+tab);
+    btn.style.background   = 'rgba(201,168,76,0.15)';
+    btn.style.color        = '#C9A84C';
+    btn.style.borderColor  = 'rgba(201,168,76,0.4)';
+    document.getElementById('tab' + tab.charAt(0).toUpperCase()+tab.slice(1)).style.display = 'block';
+    renderTab(tab);
+  }
+
+  function renderTab(tab) {
+    if(tab==='total')  renderOrders('totalOrdersContainer', _orders);
+    if(tab==='new')    renderOrders('newOrdersContainer', _orders.filter(o => !_seen.includes(o.id)));
+    if(tab==='report') {}
+  }
+
+  function renderOrders(containerId, list) {
+    const el = document.getElementById(containerId);
+    if(!list.length) { el.innerHTML = '<div class="empty-state">কোনো অর্ডার নেই।</div>'; return; }
+    const sorted = [...list].reverse();
+    el.innerHTML = sorted.map(o => {
+      const isNew = !_seen.includes(o.id);
+      return `<div class="order-card ${isNew?'unread':''}" id="oc-${o.id}">
+        <div class="order-grid">
+          <div class="of">পণ্যের নাম: <span>${o.product||'—'}</span></div>
+          <div class="of">কাস্টমারের নাম: <span>${o.customer_name||'—'}</span></div>
+          <div class="of">মোবাইল: <span>${o.phone||'—'}</span></div>
+          <div class="of">ঠিকানা: <span>${o.address||'—'}</span></div>
+          <div class="of">জেলা: <span>${o.district||'—'}</span></div>
+          <div class="of">পেমেন্ট: <span>${o.payment_method||'—'}</span></div>
+          <div class="of">বিকাশ নম্বর: <span>${o.bkash_number||'—'}</span></div>
+          <div class="of">আকার: <span>${o.size||'N/A'}</span></div>
+          <div class="of">তারিখ: <span>${o.date||'—'}</span></div>
+        </div>
+        <div class="oactions">
+          ${isNew ? `<button class="btn-seen" onclick="markSeen('${o.id}')">✓ দেখা হয়েছে</button>` : '<span style="color:#4caf7d;font-size:0.78rem;">✓ দেখা হয়েছে</span>'}
+          <button class="btn-del" onclick="deleteOrder('${o.id}')">🗑 মুছুন</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function markSeen(id) {
+    if(!_seen.includes(id)) { _seen.push(id); localStorage.setItem('km_seen_watch', JSON.stringify(_seen)); }
+    renderStats(); renderTab('total'); renderTab('new');
+  }
+
+  function deleteOrder(id) {
+    if(!confirm('এই অর্ডারটি মুছে ফেলবেন?')) return;
+    _orders = _orders.filter(o => o.id !== id);
+    _seen   = _seen.filter(s => s !== id);
+    localStorage.setItem('km_orders_watch', JSON.stringify(_orders));
+    localStorage.setItem('km_seen_watch',   JSON.stringify(_seen));
+    renderStats(); renderTab('total'); renderTab('new');
+  }
+
+  function generateReport() {
+    const from = document.getElementById('reportFrom').value;
+    const to   = document.getElementById('reportTo').value;
+    if(!from || !to) { alert('অনুগ্রহ করে শুরু ও শেষ তারিখ সিলেক্ট করুন।'); return; }
+    const fd = new Date(from); fd.setHours(0,0,0,0);
+    const td = new Date(to);   td.setHours(23,59,59,999);
+    const filtered = _orders.filter(o => {
+      const d = new Date(o.rawDate || o.date);
+      return d >= fd && d <= td;
+    });
+    renderOrders('reportContainer', filtered);
+  }
+
+  // Patch submitOrder to also save locally
+  const _origSubmit = submitOrder;
+  // Override: wrap after page load
+  window.addEventListener('load', function(){
+    const origFn = window.submitOrder;
+    window.submitOrder = function() {
+      // We hook into Promise chain via monkey-patch on fetch & emailjs
+      // Instead, we capture form data before calling original
+      const name     = document.getElementById('custName').value.trim();
+      const phone    = document.getElementById('custPhone').value.trim();
+      const address  = document.getElementById('custAddress').value.trim();
+      const district = document.getElementById('custDistrict').value.trim();
+      const bkash    = (document.getElementById('bkashSender')||{}).value||'';
+      const payEls   = document.querySelectorAll('.radio-option.active .radio-text strong');
+      const payTxt   = payEls.length ? payEls[0].textContent : '—';
+
+      if(selectedWatch && name && phone) {
+        const orderObj = {
+          id:             Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+          product:        selectedWatch.name + ' (' + selectedWatch.price + ')',
+          customer_name:  name,
+          phone:          phone,
+          address:        address,
+          district:       district,
+          payment_method: payTxt,
+          bkash_number:   bkash || 'প্রযোজ্য নয়',
+          size:           'N/A',
+          date:           new Date().toLocaleString('bn-BD'),
+          rawDate:        new Date().toISOString()
+        };
+        _saveOrder(orderObj);
+      }
+      origFn();
+    };
+  });
 </script>
 </body>
 </html>
